@@ -44,7 +44,13 @@
     display: flex;
     gap: 1.5rem;
     align-items: center;
-    margin-left: 1rem;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .nav-pages {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
   }
   .nav-link {
     font-size: 0.75rem;
@@ -66,6 +72,9 @@
     color: var(--stone);
     text-decoration: none;
     transition: color 0.15s;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem;
   }
   .nav-ig:hover { color: var(--text); }
 
@@ -154,13 +163,89 @@
     color: var(--muted);
   }
 
-  .filters { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; padding: 2.5rem 1.5rem 1rem; }
+  .filters { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; padding: 2.5rem 1.5rem 0.8rem; }
   .filter-btn { font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.07em; padding: 0.4rem 1.1rem; border-radius: 999px; border: 1px solid var(--border); background: var(--badge-bg); color: var(--badge-text); cursor: pointer; transition: all 0.18s ease; }
+  .filter-btn.active { background: var(--badge-active-bg); color: var(--badge-active-text); border-color: var(--badge-active-bg); }
+  .filter-btn:hover:not(.active) { border-color: var(--stone); color: var(--text); }
 
-  .subfilters { display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; padding: 0.8rem 1.5rem 2rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
-  .subtipo-btn { font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 400; letter-spacing: 0.06em; padding: 0.28rem 0.85rem; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.18s ease; }
-  .subtipo-btn.active { background: var(--stone); color: white; border-color: var(--stone); }
-  .subtipo-btn:hover:not(.active) { border-color: var(--stone); color: var(--text); }
+  /* ── MENÚ HAMBURGUESA / DESPLEGABLE DE TIPOS ── */
+  .subfilter-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 1.5rem 1.8rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .subfilter-dropdown-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.45rem 1.1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text);
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    transition: border-color 0.2s;
+  }
+  .subfilter-dropdown-btn:hover { border-color: var(--stone); }
+  .subfilter-burger-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 14px;
+    height: 10px;
+  }
+  .subfilter-burger-icon span {
+    display: block;
+    height: 1.5px;
+    background: var(--text);
+    border-radius: 1px;
+  }
+  .subfilter-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% - 1rem);
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    z-index: 40;
+    min-width: 200px;
+    overflow: hidden;
+    padding: 0.35rem 0;
+  }
+  .subfilter-menu.open {
+    display: flex;
+    flex-direction: column;
+  }
+  .subtipo-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    padding: 0.65rem 1.2rem;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s, color 0.15s;
+    width: 100%;
+  }
+  .subtipo-btn:hover {
+    background: var(--stone-light);
+    color: var(--text);
+  }
+  .subtipo-btn.active {
+    background: var(--stone-light);
+    color: var(--text);
+    font-weight: 500;
+  }
 
   .amedida-hero { min-height: calc(100vh - 60px); display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; background: var(--bg); }
   .amedida-content { max-width: 520px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.2rem; }
@@ -169,8 +254,6 @@
   .amedida-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.8; max-width: 400px; }
   .amedida-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: #25D366; color: white; border: none; border-radius: 3px; padding: 0.85rem 2rem; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; text-decoration: none; margin-top: 0.5rem; transition: opacity 0.15s; }
   .amedida-btn:hover { opacity: 0.88; }
-  .filter-btn.active { background: var(--badge-active-bg); color: var(--badge-active-text); border-color: var(--badge-active-bg); }
-  .filter-btn:hover:not(.active) { border-color: var(--stone); color: var(--text); }
 
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.5rem; padding: 0 2rem 5rem; max-width: 1000px; margin: 0 auto; }
 
@@ -229,7 +312,9 @@
   .modal-agotado { font-size: 0.75rem; color: var(--muted); margin-top: 1.2rem; letter-spacing: 0.08em; text-transform: uppercase; }
 
   @media (max-width: 600px) {
-    nav { padding: 1rem 1.2rem; gap: 1rem; }
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { gap: 1rem; }
+    .nav-pages { gap: 1rem; }
     .modal { grid-template-columns: 1fr; max-height: 95vh; }
     .modal-gallery { aspect-ratio: 3/4; }
     .modal-info { padding: 1.2rem 1rem; }
@@ -250,12 +335,13 @@
 <!-- NAV -->
 <nav>
   <div class="nav-links">
-    <button class="nav-link" id="nav-home" onclick="mostrarPagina('home')">Inicio</button>
-    <button class="nav-link" id="nav-catalogo" onclick="mostrarPagina('catalogo')">Catálogo</button>
-    <button class="nav-link" id="nav-amedida" onclick="mostrarPagina('amedida')">A medida</button>
-    <a class="nav-ig" href="https://instagram.com/hechoporlala" target="_blank" style="display:inline-flex;align-items:center;gap:0.35rem;">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
-      @hechoporlala
+    <div class="nav-pages">
+      <button class="nav-link" id="nav-home" onclick="mostrarPagina('home')">Inicio</button>
+      <button class="nav-link" id="nav-catalogo" onclick="mostrarPagina('catalogo')">Catálogo</button>
+      <button class="nav-link" id="nav-amedida" onclick="mostrarPagina('amedida')">A medida</button>
+    </div>
+    <a class="nav-ig" href="https://instagram.com/hechoporlala" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
     </a>
   </div>
 </nav>
@@ -281,13 +367,18 @@
     <button class="filter-btn" onclick="filtrar('Línea Etérea', this)">Línea Etérea</button>
   </div>
 
-  <div class="subfilters" id="subfilters">
-    <button class="subtipo-btn active" onclick="filtrarTipo('Todos', this)">Todos</button>
-    <button class="subtipo-btn" onclick="filtrarTipo('Anillos', this)">Anillos</button>
-    <button class="subtipo-btn" onclick="filtrarTipo('Aros', this)">Aros</button>
-    <button class="subtipo-btn" onclick="filtrarTipo('Collares', this)">Collares</button>
-    <button class="subtipo-btn" onclick="filtrarTipo('Pulseras', this)">Pulseras</button>
-    <button class="subtipo-btn" onclick="filtrarTipo('Brazaletes', this)">Brazaletes</button>
+  <!-- DESPLEGABLE TIPO HAMBURGUESA PARA TIPOS -->
+  <div class="subfilter-wrapper" id="subfilter-wrapper">
+    <button class="subfilter-dropdown-btn" id="subfilter-dropdown-btn" onclick="toggleMenuTipos(event)">
+      <span class="subfilter-burger-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      <span id="subfilter-label">Ver todos los tipos</span>
+      <span style="font-size: 0.6rem; margin-left: 0.2rem; color: var(--muted);">▼</span>
+    </button>
+    <div class="subfilter-menu" id="subfilter-menu"></div>
   </div>
 
   <div class="grid" id="grid">
@@ -365,26 +456,50 @@ function filtrar(cat, btn) {
   tipoActual = 'Todos';
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.subtipo-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector('.subtipo-btn')?.classList.add('active');
-  // Mostrar/ocultar submenú según categoría
+  
   const subtipos = ['Anillos','Aros','Collares','Pulseras','Brazaletes'];
   renderizarSubtipos(subtipos);
   renderizar();
 }
 
+function toggleMenuTipos(e) {
+  e.stopPropagation();
+  const menu = document.getElementById('subfilter-menu');
+  menu.classList.toggle('open');
+}
+
+function cerrarMenuTipos() {
+  const menu = document.getElementById('subfilter-menu');
+  if (menu) menu.classList.remove('open');
+}
+
+document.addEventListener('click', () => {
+  cerrarMenuTipos();
+});
+
 function filtrarTipo(tipo, btn) {
   tipoActual = tipo;
   document.querySelectorAll('.subtipo-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
+  
+  const label = document.getElementById('subfilter-label');
+  label.textContent = tipo === 'Todos' ? 'Ver todos los tipos' : tipo;
+  
+  cerrarMenuTipos();
   renderizar();
 }
 
 function renderizarSubtipos(tipos) {
-  const container = document.getElementById('subfilters');
-  container.innerHTML = ['Todos', ...tipos].map((t, i) =>
-    `<button class="subtipo-btn${i===0?' active':''}" onclick="filtrarTipo('${t}', this)">${t}</button>`
+  const menu = document.getElementById('subfilter-menu');
+  const label = document.getElementById('subfilter-label');
+  label.textContent = tipoActual === 'Todos' ? 'Ver todos los tipos' : tipoActual;
+
+  let html = `<button class="subtipo-btn${tipoActual === 'Todos' ? ' active' : ''}" onclick="filtrarTipo('Todos', this)">Ver todos los tipos</button>`;
+  html += tipos.map(t =>
+    `<button class="subtipo-btn${tipoActual === t ? ' active' : ''}" onclick="filtrarTipo('${t}', this)">${t}</button>`
   ).join('');
+
+  menu.innerHTML = html;
 }
 
 function formatearPrecio(p) {
@@ -532,12 +647,8 @@ async function cargarSheet() {
       };
     }).filter(p => p.nombre !== '' && p.nombre !== '→ Nombre del producto');
     tipoActual = 'Todos';
-    // Asegurar que el botón Todos de subtipos esté activo al cargar
-    const primerSubtipo = document.querySelector('.subtipo-btn');
-    if (primerSubtipo) {
-      document.querySelectorAll('.subtipo-btn').forEach(b => b.classList.remove('active'));
-      primerSubtipo.classList.add('active');
-    }
+    const subtipos = ['Anillos','Aros','Collares','Pulseras','Brazaletes'];
+    renderizarSubtipos(subtipos);
     renderizar();
   } catch(err) {
     document.getElementById('grid').innerHTML = `<div class="empty-state">No se pudo cargar el catálogo.</div>`;
