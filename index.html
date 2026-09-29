@@ -163,88 +163,146 @@
     color: var(--muted);
   }
 
-  .filters { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; padding: 2.5rem 1.5rem 0.8rem; }
+  .filters { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; padding: 2.5rem 1.5rem 0.5rem; }
   .filter-btn { font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.07em; padding: 0.4rem 1.1rem; border-radius: 999px; border: 1px solid var(--border); background: var(--badge-bg); color: var(--badge-text); cursor: pointer; transition: all 0.18s ease; }
   .filter-btn.active { background: var(--badge-active-bg); color: var(--badge-active-text); border-color: var(--badge-active-bg); }
   .filter-btn:hover:not(.active) { border-color: var(--stone); color: var(--text); }
 
-  /* ── MENÚ HAMBURGUESA / DESPLEGABLE DE TIPOS ── */
-  .subfilter-wrapper {
-    position: relative;
+  /* ── BOTÓN ACTIVADOR DEL MENÚ LATERAL ── */
+  .subfilter-bar {
     display: flex;
     justify-content: center;
     padding: 0.5rem 1.5rem 1.8rem;
     border-bottom: 1px solid var(--border);
     margin-bottom: 2rem;
   }
-  .subfilter-dropdown-btn {
+  .drawer-toggle-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    background: #fff;
+    gap: 0.65rem;
+    background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: 999px;
-    padding: 0.45rem 1.1rem;
+    padding: 0.45rem 1.15rem;
     font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.74rem;
     color: var(--text);
     cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
-    transition: border-color 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    transition: all 0.2s ease;
   }
-  .subfilter-dropdown-btn:hover { border-color: var(--stone); }
-  .subfilter-burger-icon {
+  .drawer-toggle-btn:hover {
+    border-color: var(--stone);
+    background: #FAFAFA;
+  }
+  .burger-icon {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 14px;
     height: 10px;
   }
-  .subfilter-burger-icon span {
+  .burger-icon span {
     display: block;
     height: 1.5px;
     background: var(--text);
     border-radius: 1px;
   }
-  .subfilter-menu {
+
+  /* ── MENÚ LATERAL DESPLEGABLE (DRAWER) ── */
+  .drawer-backdrop {
     display: none;
-    position: absolute;
-    top: calc(100% - 1rem);
-    background: #FFFFFF;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    z-index: 40;
-    min-width: 200px;
-    overflow: hidden;
-    padding: 0.35rem 0;
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 18, 16, 0.45);
+    z-index: 120;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-  .subfilter-menu.open {
+  .drawer-backdrop.open {
+    display: block;
+    opacity: 1;
+  }
+
+  .drawer-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(320px, 85vw);
+    background: #FFFFFF;
+    z-index: 130;
+    box-shadow: -4px 0 25px rgba(0, 0, 0, 0.12);
+    transform: translateX(100%);
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     flex-direction: column;
   }
-  .subtipo-btn {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    padding: 0.65rem 1.2rem;
+  .drawer-panel.open {
+    transform: translateX(0);
+  }
+
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-title {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .drawer-close {
+    background: none;
     border: none;
-    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
     color: var(--muted);
     cursor: pointer;
-    text-align: left;
-    transition: background 0.15s, color 0.15s;
-    width: 100%;
+    padding: 0.2rem 0.4rem;
   }
-  .subtipo-btn:hover {
+  .drawer-close:hover { color: var(--text); }
+
+  .drawer-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.8rem 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .drawer-item {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    padding: 0.85rem 1.5rem;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .drawer-item:hover {
     background: var(--stone-light);
     color: var(--text);
   }
-  .subtipo-btn.active {
-    background: var(--stone-light);
+  .drawer-item.active {
     color: var(--text);
     font-weight: 500;
+    background: var(--stone-light);
+  }
+  .drawer-item.active::after {
+    content: "•";
+    color: var(--stone);
+    font-size: 1.2rem;
+    line-height: 0;
   }
 
   .amedida-hero { min-height: calc(100vh - 60px); display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; background: var(--bg); }
@@ -367,18 +425,16 @@
     <button class="filter-btn" onclick="filtrar('Línea Etérea', this)">Línea Etérea</button>
   </div>
 
-  <!-- DESPLEGABLE TIPO HAMBURGUESA PARA TIPOS -->
-  <div class="subfilter-wrapper" id="subfilter-wrapper">
-    <button class="subfilter-dropdown-btn" id="subfilter-dropdown-btn" onclick="toggleMenuTipos(event)">
-      <span class="subfilter-burger-icon">
+  <!-- BOTÓN PARA ABRIR EL MENÚ LATERAL -->
+  <div class="subfilter-bar">
+    <button class="drawer-toggle-btn" onclick="abrirDrawerTipos()">
+      <span class="burger-icon">
         <span></span>
         <span></span>
         <span></span>
       </span>
       <span id="subfilter-label">Ver todos los tipos</span>
-      <span style="font-size: 0.6rem; margin-left: 0.2rem; color: var(--muted);">▼</span>
     </button>
-    <div class="subfilter-menu" id="subfilter-menu"></div>
   </div>
 
   <div class="grid" id="grid">
@@ -389,6 +445,16 @@
     Hecho a mano en Córdoba · <a href="https://instagram.com/hechoporlala" target="_blank">@hechoporlala</a>
   </footer>
 </div>
+
+<!-- MENÚ LATERAL (DRAWER) -->
+<div class="drawer-backdrop" id="drawer-backdrop" onclick="cerrarDrawerTipos()"></div>
+<aside class="drawer-panel" id="drawer-panel">
+  <div class="drawer-header">
+    <span class="drawer-title">Tipos de piezas</span>
+    <button class="drawer-close" onclick="cerrarDrawerTipos()" aria-label="Cerrar">×</button>
+  </div>
+  <div class="drawer-content" id="drawer-content"></div>
+</aside>
 
 <!-- A MEDIDA -->
 <div id="page-amedida" style="display:none;">
@@ -462,44 +528,42 @@ function filtrar(cat, btn) {
   renderizar();
 }
 
-function toggleMenuTipos(e) {
-  e.stopPropagation();
-  const menu = document.getElementById('subfilter-menu');
-  menu.classList.toggle('open');
+function abrirDrawerTipos() {
+  document.getElementById('drawer-backdrop').classList.add('open');
+  document.getElementById('drawer-panel').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
-function cerrarMenuTipos() {
-  const menu = document.getElementById('subfilter-menu');
-  if (menu) menu.classList.remove('open');
+function cerrarDrawerTipos() {
+  document.getElementById('drawer-backdrop').classList.remove('open');
+  document.getElementById('drawer-panel').classList.remove('open');
+  if (!document.getElementById('modal-backdrop').classList.contains('open')) {
+    document.body.style.overflow = '';
+  }
 }
 
-document.addEventListener('click', () => {
-  cerrarMenuTipos();
-});
-
-function filtrarTipo(tipo, btn) {
+function filtrarTipo(tipo) {
   tipoActual = tipo;
-  document.querySelectorAll('.subtipo-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  
   const label = document.getElementById('subfilter-label');
   label.textContent = tipo === 'Todos' ? 'Ver todos los tipos' : tipo;
   
-  cerrarMenuTipos();
+  cerrarDrawerTipos();
+  const subtipos = ['Anillos','Aros','Collares','Pulseras','Brazaletes'];
+  renderizarSubtipos(subtipos);
   renderizar();
 }
 
 function renderizarSubtipos(tipos) {
-  const menu = document.getElementById('subfilter-menu');
+  const content = document.getElementById('drawer-content');
   const label = document.getElementById('subfilter-label');
   label.textContent = tipoActual === 'Todos' ? 'Ver todos los tipos' : tipoActual;
 
-  let html = `<button class="subtipo-btn${tipoActual === 'Todos' ? ' active' : ''}" onclick="filtrarTipo('Todos', this)">Ver todos los tipos</button>`;
+  let html = `<button class="drawer-item${tipoActual === 'Todos' ? ' active' : ''}" onclick="filtrarTipo('Todos')">Ver todos los tipos</button>`;
   html += tipos.map(t =>
-    `<button class="subtipo-btn${tipoActual === t ? ' active' : ''}" onclick="filtrarTipo('${t}', this)">${t}</button>`
+    `<button class="drawer-item${tipoActual === t ? ' active' : ''}" onclick="filtrarTipo('${t}')">${t}</button>`
   ).join('');
 
-  menu.innerHTML = html;
+  content.innerHTML = html;
 }
 
 function formatearPrecio(p) {
@@ -561,7 +625,9 @@ function abrirModal(idx) {
 function cerrarModal(e, forzar) {
   if (forzar || (e && e.target === document.getElementById('modal-backdrop'))) {
     document.getElementById('modal-backdrop').classList.remove('open');
-    document.body.style.overflow = '';
+    if (!document.getElementById('drawer-panel').classList.contains('open')) {
+      document.body.style.overflow = '';
+    }
   }
 }
 
@@ -582,7 +648,12 @@ function actualizarCarrusel() {
   document.getElementById('btn-next').classList.toggle('hidden', carruselActual === fotosModal.length - 1 || fotosModal.length <= 1);
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(null, true); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    cerrarModal(null, true);
+    cerrarDrawerTipos();
+  }
+});
 
 function renderizar() {
   const grid = document.getElementById('grid');
