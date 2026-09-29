@@ -5,606 +5,131 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hecho por Lala — Joyería artesanal</title>
 <meta name="description" content="Joyería de autor que explora las texturas y posibilidades del metal. Córdoba, Argentina.">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://googleapis.com" rel="stylesheet">
 <style>
- /* Arreglo para el menú amontonado en celulares */
-@media (max-width: 480px) {
-    header, nav {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        gap: 12px !important;
-        padding: 10px 5px !important;
-    }
-    nav a {
-        font-size: 11px !important;
-        letter-spacing: 1px !important;
-    }
-}
-
+ @media (max-width: 480px) {
+    header, nav { display: flex !important; flex-direction: row !important; flex-wrap: wrap !important; justify-content: center !important; gap: 12px !important; padding: 10px 5px !important; }
+    nav a { font-size: 11px !important; letter-spacing: 1px !important; }
+ }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #F8F7F5;
-    --text: #1A1A1A;
-    --muted: #888;
-    --stone: #B8A99A;
-    --stone-light: #EDE8E3;
-    --border: #E0D9D2;
-    --card-bg: #FFFFFF;
-    --badge-bg: #EDE8E3;
-    --badge-text: #7A6A5A;
-    --badge-active-bg: #1A1A1A;
-    --badge-active-text: #F8F7F5;
-    --wa: #25D366;
-    --home-bg: #2C2A25;
-    --logo-brown: #4A4232;
+    --bg: #F8F7F5; --text: #1A1A1A; --muted: #888; --stone: #B8A99A; --stone-light: #EDE8E3; --border: #E0D9D2;
+    --card-bg: #FFFFFF; --badge-bg: #EDE8E3; --badge-text: #7A6A5A; --badge-active-bg: #1A1A1A; --badge-active-text: #F8F7F5;
+    --wa: #25D366; --home-bg: #2C2A25; --logo-brown: #4A4232;
   }
-
   body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
-  /* ── NAV ── */
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.2rem 2rem;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg);
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
-  .nav-links {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    margin-left: 1rem;
-  }
-  .nav-link {
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    text-decoration: none;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: color 0.15s;
-    background: none;
-    border: none;
-    font-family: 'Inter', sans-serif;
-    padding: 0;
-  }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 2rem; border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 50; }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; margin-left: 1rem; }
+  .nav-link { font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; text-transform: uppercase; cursor: pointer; transition: color 0.15s; background: none; border: none; font-family: 'Inter', sans-serif; padding: 0; }
   .nav-link:hover, .nav-link.active { color: var(--text); }
-  .nav-ig {
-    font-size: 0.75rem;
-    letter-spacing: 0.06em;
-    color: var(--stone);
-    text-decoration: none;
-    transition: color 0.15s;
-  }
+  .nav-ig { font-size: 0.75rem; letter-spacing: 0.06em; color: var(--stone); text-decoration: none; transition: color 0.15s; }
   .nav-ig:hover { color: var(--text); }
-
-  /* ── HOME ── */
-  #page-home { display: block; }
-  #page-catalogo { display: none; }
-
-  .home-hero {
-    background-image: url('https://res.cloudinary.com/tgvqd4pc/image/upload/c_fill,g_center,ar_16:9,w_1600/v1790108220/IMG_5139.jpg');
-    background-size: cover;
-    background-position: center 30%;
-    min-height: 92vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem 2rem;
-    text-align: center;
-    gap: 2rem;
-    position: relative;
-  }
-
-  .home-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(240, 235, 225, 0.55);
-  }
-
-  .home-hero > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .home-logo {
-    width: min(380px, 75vw);
-    height: auto;
-  }
-
-  .home-desc {
-    max-width: 420px;
-    font-size: 0.88rem;
-    line-height: 1.8;
-    color: #3A3020;
-    letter-spacing: 0.02em;
-  }
-
-  .home-cta {
-    display: inline-block;
-    margin-top: 0.8rem;
-    font-size: 1rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #F8F7F5;
-    background: #4A4232;
-    border: none;
-    border-radius: 2px;
-    padding: 1rem 2.8rem;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    transition: background 0.2s, transform 0.15s;
-    box-shadow: 0 2px 12px rgba(74,66,50,0.18);
-  }
+  #page-home { display: block; } #page-catalogo { display: none; }
+  .home-hero { background-image: url('https://cloudinary.com'); background-size: cover; background-position: center 30%; min-height: 92vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2rem; text-align: center; gap: 2rem; position: relative; }
+  .home-hero::before { content: ''; position: absolute; inset: 0; background: rgba(240, 235, 225, 0.55); }
+  .home-hero > * { position: relative; z-index: 1; }
+  .home-desc { max-width: 420px; font-size: 0.88rem; line-height: 1.8; color: #3A3020; letter-spacing: 0.02em; }
+  .home-cta { display: inline-block; margin-top: 0.8rem; font-size: 1rem; letter-spacing: 0.14em; text-transform: uppercase; color: #F8F7F5; background: #4A4232; border: none; border-radius: 2px; padding: 1rem 2.8rem; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 500; transition: background 0.2s, transform 0.15s; box-shadow: 0 2px 12px rgba(74,66,50,0.18); }
   .home-cta:hover { background: #3A3020; transform: translateY(-1px); }
-
-  .home-footer {
-    padding: 1.5rem 2rem;
-    text-align: center;
-    font-size: 0.7rem;
-    color: var(--muted);
-    border-top: 1px solid var(--border);
-  }
-  .home-footer a { color: var(--stone); text-decoration: none; }
-
-  /* ── CATÁLOGO ── */
-  .cat-header {
-    padding: 2.5rem 2rem 0;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  .cat-title {
-    font-size: 0.7rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .filters { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; padding: 2.5rem 1.5rem 1rem; }
+  .cat-header { padding: 2.5rem 2rem 0; text-align: center; margin-bottom: 2rem; }
+  .cat-title { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .filters { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; padding: 1.5rem 1.5rem 1rem; }
   .filter-btn { font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.07em; padding: 0.4rem 1.1rem; border-radius: 999px; border: 1px solid var(--border); background: var(--badge-bg); color: var(--badge-text); cursor: pointer; transition: all 0.18s ease; }
-
-  .subfilters { display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; padding: 0.8rem 1.5rem 2rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
-  .subtipo-btn { font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 400; letter-spacing: 0.06em; padding: 0.28rem 0.85rem; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.18s ease; }
-  .subtipo-btn.active { background: var(--stone); color: white; border-color: var(--stone); }
-  .subtipo-btn:hover:not(.active) { border-color: var(--stone); color: var(--text); }
-
-  .amedida-hero { min-height: calc(100vh - 60px); display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; background: var(--bg); }
-  .amedida-content { max-width: 520px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.2rem; }
-  .amedida-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); }
-  .amedida-title { font-family: 'DM Serif Display', serif; font-size: 2.2rem; color: var(--text); line-height: 1.2; }
-  .amedida-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.8; max-width: 400px; }
-  .amedida-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: #25D366; color: white; border: none; border-radius: 3px; padding: 0.85rem 2rem; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; text-decoration: none; margin-top: 0.5rem; transition: opacity 0.15s; }
-  .amedida-btn:hover { opacity: 0.88; }
   .filter-btn.active { background: var(--badge-active-bg); color: var(--badge-active-text); border-color: var(--badge-active-bg); }
-  .filter-btn:hover:not(.active) { border-color: var(--stone); color: var(--text); }
-
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.5rem; padding: 0 2rem 5rem; max-width: 1000px; margin: 0 auto; }
-
-  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; display: flex; flex-direction: column; transition: border-color 0.2s ease; cursor: pointer; }
-  .card:hover { border-color: var(--stone); }
-  .card-img { width: 100%; aspect-ratio: 3/4; background: var(--stone-light); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-  .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s ease; }
-  .card:hover .card-img img { transform: scale(1.03); }
-  .no-foto { font-size: 0.62rem; letter-spacing: 0.1em; color: var(--stone); text-transform: uppercase; }
-  .agotado-overlay { position: absolute; inset: 0; background: rgba(248,247,245,0.72); display: flex; align-items: center; justify-content: center; }
-  .agotado-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 0.3rem 0.8rem; background: white; border-radius: 2px; }
-
-  .card-body { padding: 0.9rem 1rem 1rem; display: flex; flex-direction: column; gap: 0.3rem; flex: 1; }
-  .card-category { font-size: 0.62rem; letter-spacing: 0.11em; color: var(--stone); text-transform: uppercase; }
-  .card-name { font-size: 0.95rem; font-weight: 500; color: var(--text); line-height: 1.3; }
-  .card-desc { font-size: 0.77rem; color: var(--muted); line-height: 1.55; flex: 1; margin-top: 0.1rem; }
-  .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid var(--border); }
-  .card-price { font-size: 1rem; font-weight: 500; color: var(--text); }
-
-  .wa-btn { display: inline-flex; align-items: center; gap: 0.3rem; font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 500; color: #fff; background: var(--wa); border: none; border-radius: 3px; padding: 0.38rem 0.7rem; cursor: pointer; text-decoration: none; transition: opacity 0.15s; white-space: nowrap; }
-  .wa-btn:hover { opacity: 0.86; }
-  .wa-icon { width: 12px; height: 12px; flex-shrink: 0; fill: white; }
-
-  .empty-state { grid-column: 1 / -1; text-align: center; padding: 5rem 1rem; color: var(--muted); font-size: 0.88rem; line-height: 1.7; }
-  .loading { grid-column: 1/-1; text-align: center; padding: 4rem; color: var(--muted); font-size: 0.82rem; letter-spacing: 0.06em; }
-
-  footer { text-align: center; padding: 2rem 1rem; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
-  footer a { color: var(--stone); text-decoration: none; }
-  footer a:hover { color: var(--text); }
-
-  /* ── MODAL ── */
-  .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(20,18,16,0.7); z-index: 100; align-items: center; justify-content: center; padding: 1rem; }
-  .modal-backdrop.open { display: flex; }
-  .modal { background: var(--card-bg); border-radius: 4px; max-width: 760px; width: 100%; max-height: 90vh; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; position: relative; }
-  .modal-close { position: absolute; top: 0.8rem; right: 0.9rem; background: none; border: none; font-size: 1.4rem; color: var(--muted); cursor: pointer; z-index: 10; line-height: 1; padding: 0.2rem 0.4rem; }
-  .modal-close:hover { color: var(--text); }
-  .modal-gallery { position: relative; background: var(--stone-light); aspect-ratio: 3/4; overflow: hidden; }
-  .carousel-track { display: flex; height: 100%; transition: transform 0.3s ease; }
-  .carousel-slide { min-width: 100%; height: 100%; }
-  .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.85); border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text); z-index: 5; transition: background 0.15s; }
-  .carousel-btn:hover { background: white; }
-  .carousel-btn.prev { left: 0.6rem; }
-  .carousel-btn.next { right: 0.6rem; }
-  .carousel-btn.hidden { display: none; }
-  .carousel-dots { position: absolute; bottom: 0.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; }
-  .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); border: none; cursor: pointer; padding: 0; transition: background 0.15s; }
-  .carousel-dot.active { background: white; }
-  .modal-info { padding: 2rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
-  .modal-category { font-size: 0.62rem; letter-spacing: 0.12em; color: var(--stone); text-transform: uppercase; }
-  .modal-name { font-size: 1.4rem; font-weight: 500; color: var(--text); line-height: 1.2; margin-top: 0.2rem; }
-  .modal-price { font-size: 1.2rem; font-weight: 500; color: var(--text); margin-top: 0.5rem; }
-  .modal-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin-top: 0.5rem; flex: 1; }
-  .modal-wa { display: inline-flex; align-items: center; gap: 0.4rem; font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 500; color: #fff; background: var(--wa); border: none; border-radius: 3px; padding: 0.65rem 1.1rem; cursor: pointer; text-decoration: none; transition: opacity 0.15s; margin-top: 1.2rem; width: fit-content; }
-  .modal-wa:hover { opacity: 0.86; }
-  .modal-agotado { font-size: 0.75rem; color: var(--muted); margin-top: 1.2rem; letter-spacing: 0.08em; text-transform: uppercase; }
-
-  @media (max-width: 600px) {
-    nav { padding: 1rem 1.2rem; gap: 1rem; }
-    .modal { grid-template-columns: 1fr; max-height: 95vh; }
-    .modal-gallery { aspect-ratio: 3/4; }
-    .modal-info { padding: 1.2rem 1rem; }
-    .modal-name { font-size: 1.2rem; }
-    .grid { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; padding: 0 1rem 4rem; }
-    .card-body { padding: 0.7rem 0.8rem 0.8rem; }
-    .card-name { font-size: 0.87rem; }
-    .card-desc { display: none; }
-    .card-price { font-size: 0.9rem; }
-    .card-footer { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-    .wa-btn { font-size: 0.65rem; padding: 0.32rem 0.55rem; }
-    .home-hero { min-height: 88vh; padding: 3rem 1.5rem; }
-  }
+  .loading { text-align: center; color: var(--muted); font-size: 0.85rem; letter-spacing: 0.05em; padding: 3rem 0; }
 </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-links">
-    <button class="nav-link" id="nav-home" onclick="mostrarPagina('home')">Inicio</button>
-    <button class="nav-link" id="nav-catalogo" onclick="mostrarPagina('catalogo')">Catálogo</button>
-    <button class="nav-link" id="nav-amedida" onclick="mostrarPagina('amedida')">A medida</button>
-    <a class="nav-ig" href="https://instagram.com/hechoporlala" target="_blank" style="display:inline-flex;align-items:center;gap:0.35rem;">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
-     
-    </a>
-  </div>
-</nav>
-
-<!-- HOME -->
-<div id="page-home">
-  <div class="home-hero">
-    <svg class="home-logo" id="Capa_1_hero" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180"><defs><style>.cls-1,.cls-2,.cls-3,.cls-5,.cls-6{fill:#534932;}.cls-1,.cls-2,.cls-4,.cls-5,.cls-6{stroke:#534932;stroke-miterlimit:10;}.cls-1{stroke-width:1.09px;}.cls-2{stroke-width:1.05px;}.cls-4{fill:#524932;}.cls-4,.cls-5{stroke-width:0.91px;}.cls-6{stroke-width:0.59px;}</style></defs><title>Logo escrito </title><path class="cls-1" d="M522.92,113.52c1.23-.73,2.55-1.34,3-.89,1.1,1-1.83,8.25-7.62,11.45-6.78,3.73-14.48.53-15.87-.64-4-3.33-6.75-8.09-9.91-12a68,68,0,0,0-5.5,10.28,41.36,41.36,0,0,1-3.84,7.4c-.24.37-.46.7-.69,1-1.9,2.63-6.55,6.8-11.2,6.18-3.6-.49-6.87-3.54-9.31-9.13-1.67-3.84-2.64-8-4.19-12.79-1.49,1.41-3.13,2.39-3.94,3.84-2,3.53-3.08,3.9-5.35,5.77a19.84,19.84,0,0,1-5,3.06,21.9,21.9,0,0,1-2.5.83c-12.78,3.27-19.88-2.89-19.88-2.89-3.87-3.35-4.6-7.89-5.88-15.83-.31-1.88-2.09-9.33-.26-17.42.86-3.82,1.7-4.25,2.12-4.27,1,0,1.94,2.08,2.33,3.08a44,44,0,0,0,1.16,15.42,46.83,46.83,0,0,0,5.82,13.37c2.05.76,8.8,3,15.27.29a14.68,14.68,0,0,0,2.17-1.1,17.81,17.81,0,0,0,5.13-4.82,37.23,37.23,0,0,0,6.52-13.9c.77-4.15-.4-2.72,0-11.31A185.48,185.48,0,0,1,457.86,70a19,19,0,0,1,.38-1.89c.36-1.45.83-2.36,3.11-11.47a21,21,0,0,1,3.49-8.23c1.37-1.84,2.92-3.94,5-4.19,3.74-.45,10.51,4.79,10.52,10.32,0,14.85-5.45,27.74-13.2,40a49.68,49.68,0,0,0-4.9,10.77c-1.86,5.48,3.4,20.51,8.22,23.23a5.59,5.59,0,0,0,5.21-.68c4.71-4.77,9.1-9,16.67-28.67,4.36-11.31,5.1-13.57,8.13-16.31,5.53-5,14.62-7.85,20.4-4.4,2.71,1.61,4.59,4.55,4,5.43-.73,1.14-4.82-2.13-10.18-1-3.3.68-5.47,2.69-8.14,5.14A25.19,25.19,0,0,0,499.86,97c-1.19,2.87-4.07,8.76-.93,14.09,4.46,7.6,10.77,9.75,18.33,5.4C519.1,115.46,521,114.53,522.92,113.52Zm-61.57-25,1.16,2a8.38,8.38,0,0,0,1.54-.58c2.7-1.29,4.09-3.56,5.44-6.61A50.71,50.71,0,0,0,473,72c.35-1.72,2.76-13.79,2.37-16.6a3.33,3.33,0,0,0-.36-1.1c-.85-1.62-2.84-2.15-4-2.35A8,8,0,0,0,468,54a9.69,9.69,0,0,0-2,4.23,65.43,65.43,0,0,0-4.62,18.9A63.56,63.56,0,0,0,461.35,88.47Z"/><path class="cls-2" d="M389.6,108.48c-7.47,6.62-17,10.1-25.63,15.09-5.58,3.23-20.48,14.23-22,1.93-.95-7.85-1.52-15.76-1.71-23.65-.37-15.65-.46-31.3-.47-47a15.64,15.64,0,0,1,.88-7.88,4.3,4.3,0,0,1,2.09-2.56A5.18,5.18,0,0,1,345,44a5.34,5.34,0,0,1,3.49,1,3.33,3.33,0,0,1,1.17,3.82V61.17c-.42,5.23-.85,9.48-1.17,12.43-.71,6.58-1.11,8.89-1.16,13.37,0,1.22,0,1.56,0,6.69,0,5.41,0,5.59,0,6.69a74.66,74.66,0,0,0,1.16,9.56c.4,2.73.88,6.63,1.17,11.47,2.59-.95,6.46-2.41,11.08-4.35a146.89,146.89,0,0,0,25.9-13.62c2.37-1.48,4-3.87,5.59-6a30.28,30.28,0,0,1,6.1-5.56,57.2,57.2,0,0,1,8-5q2.1-1.09,4.29-2c1.16-.48,2.87-1.52,4.16-1.52,1.75,0,1.87,2.52,1.83,3.64a1.39,1.39,0,0,1-.13.61,1.59,1.59,0,0,1-.74.55c-2.73,1.33-5.58,2.55-8.15,4.13a31.46,31.46,0,0,0-10.81,11.46,23.28,23.28,0,0,0-2.8,7.31c-1.17,6.11,0,14.46,7,17.35,3,1.23,5.91-.52,8.31-2a42.25,42.25,0,0,1,3.85-2.27c.52-.26,4.39-1.76,4.38-2,.14,3.15-5.39,9.86-10.06,11.91a12.48,12.48,0,0,1-12.1-1,16.57,16.57,0,0,1-8.15-17.61C387.48,113.51,388.09,109.81,389.6,108.48Z"/><path class="cls-1" d="M530,96.18a43.06,43.06,0,0,0,3.05,9.25,31.89,31.89,0,0,0,6.81,9.94,10.29,10.29,0,0,0,3.36,2.4c2.19.88,4.16.53,7.13,0a36.84,36.84,0,0,0,7.12-2.06h1l-1,2.06a10.82,10.82,0,0,1-11.9,7.08C537.06,124,530,116.46,527,109.54a31.85,31.85,0,0,1-1.7-5.09,38.76,38.76,0,0,1-.86-13.64c.56-5.08,1.62-5.73,2.11-5.93,1.24-.49,2.72.44,3.51,1V96.18Z"/><path class="cls-3" d="M95.32,117.69q0,5.61,0,11.24c0,1.36-.5,3.75-2.09,4.09-2.21.48-3.37-3.17-4-4.65-3.59-8.44-.25-22-11.63-24.23a173.22,173.22,0,0,0-19-2.48c-5.18-.45-1.61,11.57-1,14,1.53,5.69,3.65,11.69,2.12,17.62a1.89,1.89,0,0,1-.52,1,1.74,1.74,0,0,1-1.25.3c-4.35-.18-7.56-4.24-9-8.34-1.91-5.4-1.85-11.26-2.06-17C46.43,95,44.07,80.79,42.63,66.55A191,191,0,0,1,41.5,45.3c.07-5.81-.47-14.61,2.14-19.93a2.71,2.71,0,0,1,2.53-1.65c1.61.16,2.35,2.05,2.71,3.62,3,13.08,3.44,26.54,3.87,39.9.21,6.61.44,13.23.91,19.84.29,4.13.57,9.88,6.16,9.69a87.66,87.66,0,0,1,15.62.57c1.86.26,4.64,1.15,6.49.76,2.3-.48,1.79-1.25,1.81-3.79.07-8.39-1.19-16.72-2.24-25-1.28-10-4.63-22.91-1.47-32.75.54-1.69,1.71-3.59,3.48-3.47,2.09.13,2.83,2.8,3,4.89C88.26,58.17,89.93,78.43,92,98.6a17.91,17.91,0,0,0,1.35,6.29"/><path class="cls-3" d="M97.77,106.34c-1.43,2.46,1.37,6.11,2.44,8.2a76.5,76.5,0,0,0,5.06,8.89c2.88,4.18,6.76,7.91,11.6,9.42,5.2,1.62,11,.49,15.77-2a7.28,7.28,0,0,0,2.92-2.39,3,3,0,0,0-.15-3.55c-1.28-1.31-3.47-.6-5.11.21-3.48,1.7-7.2,3.57-11,3a14.35,14.35,0,0,1-7.33-4,33,33,0,0,1-7-9.3c-.7-1.39-1.29-3.09-.53-4.45s2.47-1.7,3.95-2.11a20.48,20.48,0,0,0,11.61-8.56,12.06,12.06,0,0,0,2.18-7.76c-.23-2-2.55-6.64-5.2-5.81-.1,0,1.77,3.28,1.86,3.58.47,1.55-.14,2.82-1,4.14a26.67,26.67,0,0,1-8.4,7.91,8.09,8.09,0,0,1-3.41,1.3,3.48,3.48,0,0,1-3.22-1.37,6.31,6.31,0,0,1-2.43,3.16l-.18-7.61c-.7,2.36-.58,5.28-1.88,7.42"/><path class="cls-3" d="M97.94,110.05a.14.14,0,0,0,0-.09l-.09.14"/><path class="cls-3" d="M164,95.76c-14.2-13.7-24.95,8.16-21.44,21.16a36.39,36.39,0,0,1,1.23,8.22c.11,4.14,3.38,4.7,5.91,4.64,6.95.63,22.06-10.09,26.52-7.15,1.72,9-17.7,12.72-24.23,14.43a7.4,7.4,0,0,1-1.88.17,10.83,10.83,0,0,1-1.8-.14,11.75,11.75,0,0,1-3.37-1.13,16.61,16.61,0,0,1-3.11-2.06,29.52,29.52,0,0,1-2.93-2.77c-.32-.35-.65-.7-1-1.06l-.48-.55a1.27,1.27,0,0,1-.35-.56,7.05,7.05,0,0,1-.17-1.21c0-.37,0-.74,0-1.11a2.13,2.13,0,0,0-.22-.82c-.11-.32-.23-.63-.34-.95-.19-.56-.37-1.12-.54-1.69-.21-.73-.4-1.46-.58-2.19s-.39-1.74-.54-2.61-.32-2-.42-2.94-.18-2.13-.2-3.19a31.42,31.42,0,0,1,.09-3.36,28.2,28.2,0,0,1,.49-3.44,24.53,24.53,0,0,1,1-3.45,22,22,0,0,1,3.66-6.52C146.15,87.07,159.85,83,164,95.76Z"/><path class="cls-4" d="M172.45,54.71A44.7,44.7,0,0,1,178.6,58a10.18,10.18,0,0,1,3.24,7.07c.13,4.48-.37,9-.56,13.46-.12,3,0,6-.31,9a48.45,48.45,0,0,1-1.85,6.89c3.14,2.92,2.84,9.5,2.59,13.33-.62,9.89-2,20.08-2,30-.16,1.56-1.07,3-1.7,4.7-3.91-1.16-4.83-3.58-4.7-7,1.06-27,2.44-53.81-1-80.75C172.28,54.66,172.34,54.67,172.45,54.71Z"/><path class="cls-5" d="M226.32,104.36c-5.08,1.5-7,5.61-7.51,10.22-.44,4.19-1.05,9,4.67,10.79a24.5,24.5,0,0,0,2.8-.26,7.66,7.66,0,0,0,2-.37c3.83-1.5,6.51-15.59,9.23-19.22,3.62,0-2.92,24-6.95,25.42-5.61,1.94-10.76.14-14.75-4.64-1.53-1.83-3.81-3-6.61-5.18,1.07,6.58-3.13,5.17-5.56,5.25-5.22.17-6.95-3.17-6.14-11.16.4.15.94.17,1.11.43,1.69,2.57,2.75,6.23,7,4.89s6.62-4.42,7.4-8.81c.95-5.34,1.39-10.89,3.2-15.94s7.7-9.7,13.58-7.13c4.13,2.37,9.57,7.8,2.32,5.09-3.55-.38-4.53-1.82-8.16.9-.91.91-1.81,4.53-.91,5.81l3.26,4Z"/><path class="cls-5" d="M222.67,103.51c2-.83,4.25-1.37,6-2.58a95.73,95.73,0,0,0,9.66-7.51c3.37-3,6.29-6.49,9.82-9.25.95-.74,2.77-.39,4.42-.25a1,1,0,0,1,.87,1.06c-.19,1.68-.19,3.55-1.12,4.53C248.15,93.9,243.58,98,239,102a13,13,0,0,1-5.27,2.79,43.77,43.77,0,0,1-11.36,1.61l.49-.14-.1-2.8h-.05A.45.45,0,0,0,222.67,103.51Z"/><path class="cls-5" d="M179,100c1-4.28,2.45-9.85,7.89-13.53,4.79-3.25,9.62-2.2,11.5,3.29.67,2,.28,4.28.57,6.41a9,9,0,0,0,1.14,2.33c.42.91,1.3,2,1.08,2.73-1.06,3.66-4.18,9.58-4,8.91,1.22-6-1.25-11.41-2.75-16.94-.83-3-3.69-3.54-6.17-1.37C184.77,94.85,181.4,97.86,179,100Z"/><path class="cls-3" d="M113.27,82.57c1.07.12,2,1.15,3.06,1.76,1.1,0,5,4,4.24,4.75h-2.35l-.89.07c-4.06-.17-7.23,1.09-9.67,4.36-.68.9-4.31,12.78-6.66,11.22-3.13.78-.79-5.46-.85-7.89C100.15,96.84,105.94,81.77,113.27,82.57Z"/><path class="cls-3" d="M213.38,116.76a20,20,0,0,0-3,2.43,8.15,8.15,0,0,1-2.84,2.11c-1.7.54-3.2-.72-4.12-2-2.83-4.08-2.13-10-2.18-14.69-.05-4.89-.62-9.88-2.87-14.3-2.15-4.22-6.56-7.29-11.34-5.34-2.7,1.11-4.91,3.35-6.89,5.44a55.08,55.08,0,0,0-5.79,7.3c-1.64,2.43,2.29,4.7,3.91,2.29a48.23,48.23,0,0,1,4.79-6.07c1.58-1.7,3.44-3.88,5.64-4.77,3.83-1.57,6,3.49,6.87,6.33,1.47,5,1,10,1.22,15.15.19,4.69,1,10,4.73,13.27a7.69,7.69,0,0,0,7.23,1.8c2.9-.91,4.46-3.44,6.91-5s.19-5.48-2.28-3.91Z"/><path class="cls-6" d="M265.79,152c-.12,0-.75,4.38-1.31,4.28-.82-.16-2-1.13-2.1-1.87-.43-3.81-.52-7.67-.79-11.5s-.71-7.95-.93-11.93c-.24-4.42-.32-8.85-.45-13.28a12.92,12.92,0,0,1,.15-1.75c.25-2-.19-4.62.9-5.93,2.77-3.3,6.38-5.7,11.08-5.53,4.38.15,8.68,4.59,8.58,8.78,0,1.59-.59,2.17-2.12,1.77l.07,0a16.07,16.07,0,0,0-6.06-6.24,8.84,8.84,0,0,0-3-.24,22.2,22.2,0,0,0-2.86.78c-2.46.51-2.74,2.34-2.77,4.23,0,2.46.24,4.93.25,7.39,0,4.11,1.31,5.14,5.22,4a9.51,9.51,0,0,1,2.32-.56c10.26-.31-6.66,3.86-7.29,8.4l-.07.1,0,.73"/><path d="M264.62,133.64l0,.13"/><path class="cls-6" d="M278.1,114.11c.72-1.68,1.79-2.55,2.35-2.35s.69,1.19.59,2.35a17.45,17.45,0,0,1-2.94,8.23c-1.72,2.45-3.06,2.83-3.53,2.93a5.16,5.16,0,0,1-3.52-.58,10.58,10.58,0,0,0,7.05-10.58Z"/><path class="cls-6" d="M285.9,125.48a23,23,0,0,1,.15-4.46,54.15,54.15,0,0,1,1.47-7.78,11.7,11.7,0,0,1,2.4-5.09,6.51,6.51,0,0,1,10.79,2c-2.58.55-5.15-2.14-7.53.23-2.22,2.23.19,4.7,1.56,6.41a5.6,5.6,0,0,0-3.5,2.42,9.74,9.74,0,0,0-1.5,4.06,8.57,8.57,0,0,0,.18,4.09,4.4,4.4,0,0,0,2.77,2.85,4.74,4.74,0,0,0,4.82-1.95,14.1,14.1,0,0,0,2.08-5.08,17.3,17.3,0,0,1,2.49-5.74c.61.34.65,1.18.6,1.87a36.07,36.07,0,0,1-3.13,11.79,5,5,0,0,1-5.31,3.32,9.33,9.33,0,0,1-8.07-7.13A13,13,0,0,1,285.9,125.48Z"/><path class="cls-6" d="M292.35,116.09a21,21,0,0,0,3.91-1.67,62.72,62.72,0,0,0,6.26-4.86c2.19-1.93,4.08-4.21,6.37-6,.61-.48,3.47.18,3.43.53-.13,1.09-.12,2.3-.73,2.93-2.72,2.84-5.68,5.47-8.64,8.08a8.56,8.56,0,0,1-3.42,1.81,28.62,28.62,0,0,1-7.36,1l.28-.08-.06-1.83h0A.14.14,0,0,0,292.35,116.09Z"/><path class="cls-3" d="M309.5,106.6a81.61,81.61,0,0,1,4.82,11.84c1.22,3.89,2.68,8.25,1.57,12.32h2.83A64.35,64.35,0,0,1,316,112.38c0-2.61.49-5.12,2.54-6.9a10.78,10.78,0,0,1,7.18-2.38,1.47,1.47,0,0,0,0-2.93,13.91,13.91,0,0,0-8.4,2.55,10.41,10.41,0,0,0-4.16,7.63,44.79,44.79,0,0,0,.48,10.34,69.08,69.08,0,0,0,2.29,10.85,1.48,1.48,0,0,0,2.83,0c1.23-4.48-.11-9.14-1.44-13.44a83.89,83.89,0,0,0-5.24-13c-.85-1.69-3.38-.21-2.54,1.48Z"/></svg>
-    <p class="home-desc">Joyería de autor, desde mis clásicos de catálogo hasta diseños únicos.</p>
-    <button class="home-cta" onclick="mostrarPagina('catalogo')">Ver catálogo</button>
-  </div>
-  <div class="home-footer">
-    Hecho a mano en Córdoba · <a href="https://instagram.com/hechoporlala" target="_blank">@hechoporlala</a>
-  </div>
-</div>
-
-<!-- CATÁLOGO -->
-<div id="page-catalogo">
-  <div class="filters" id="filters">
-    <button class="filter-btn active" onclick="filtrar('Todos', this)">Todos</button>
-    <button class="filter-btn" onclick="filtrar('Clásicos', this)">Clásicos</button>
-    <button class="filter-btn" onclick="filtrar('Exploración', this)">Exploración</button>
-    <button class="filter-btn" onclick="filtrar('Línea Etérea', this)">Línea Etérea</button>
-  </div>
-
-<!-- ── NUEVO MENÚ LATERAL ELEGANTE CORREGIDO ── -->
-<div style="text-align: center; margin: 1.5rem 0 0.5rem;">
-    <!-- Botón minimalista de Filtrar -->
-    <button type="button" onclick="toggleMenuLateral(true)" style="font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 1.6rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); cursor: pointer; border-radius: 2px; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s;">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-        Filtrar por Categoría
-    </button>
-</div>
-
-<!-- Panel Lateral Desplazable -->
-<div id="panel-lateral-filtros" style="position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--card-bg); box-shadow: -4px 0 25px rgba(0,0,0,0.08); z-index: 9999; transition: right 0.3s ease; display: flex; flex-direction: column; padding: 2rem 1.5rem;">
-    <!-- Botón de Cerrar -->
-    <div style="display: flex; justify-content: flex-end; margin-bottom: 2rem;">
-        <button type="button" onclick="toggleMenuLateral(false)" style="background: none; border: none; font-size: 1.2rem; color: var(--muted); cursor: pointer; padding: 0.5rem;">✕</button>
+  <nav>
+    <div class="nav-links">
+      <button class="nav-link active" id="nav-home" onclick="mostrarPagina('home')">Inicio</button>
+      <button class="nav-link" id="nav-catalogo" onclick="mostrarPagina('catalogo')">Catálogo</button>
+      <a class="nav-ig" href="https://instagram.com" target="_blank" style="display:inline-flex; align-items:center; gap:0.35rem;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </a>
     </div>
-    
-    <span style="font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); margin-bottom: 1rem; font-weight: 500;">Joyas</span>
-    
-    <!-- Lista de Categorías -->
-    <div id="contenedor-botones-laterales" style="display: flex; flex-direction: column; gap: 0.4rem;">
-        <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Todos', this)">Todos los productos</button>
-        <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Anillos', this)">Anillos</button>
-        <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Aros', this)">Aros</button>
-        <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Collares', this)">Collares</button>
-        <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Pulseras', this)">Pulseras</button>
-        <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Brazaletes', this)">Brazaletes</button>
-    </div>
-</div>
+  </nav>
 
-<!-- Fondo oscuro difuminado -->
-<div id="cortina-pantalla" onclick="toggleMenuLateral(false)" style="position: fixed; inset: 0; background: rgba(0,0,0,0.2); backdrop-filter: blur(2px); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease;"></div>
-
-<!-- CONTENEDOR ORIGINAL DEL CATÁLOGO (Esto repara el bloqueo de la página) -->
-<div class="grid" id="grid">
-    <div class="loading">Cargando catálogo...</div>
-</div>
-
-<!-- Lógica de control para el menú lateral -->
-<script>
-function toggleMenuLateral(abrir) {
-    const panel = document.getElementById('panel-lateral-filtros');
-    const cortina = document.getElementById('cortina-pantalla');
-    if (abrir) {
-        cortina.style.display = 'block';
-        setTimeout(() => { panel.style.right = '0'; cortina.style.opacity = '1'; }, 10);
-    } else {
-        panel.style.right = '-100%';
-        cortina.style.opacity = '0';
-        setTimeout(() => { cortina.style.display = 'none'; }, 300);
-    }
-}
-
-function ejecutarFiltroLateral(categoria, elemento) {
-    const botones = document.getElementById('contenedor-botones-laterales').getElementsByTagName('button');
-    for (let btn of botones) { btn.classList.remove('active'); }
-    elemento.classList.add('active');
-    if (typeof filtrar === 'function') {
-        filtrar(categoria, elemento);
-    }
-    setTimeout(() => { toggleMenuLateral(false); }, 250);
-}
-</script>
-
-
-<!-- Fondo oscuro difuminado al abrirse -->
-<div id="cortina-pantalla" onclick="toggleMenuLateral(false)" style="position: fixed; inset: 0; background: rgba(0,0,0,0.2); backdrop-filter: blur(2px); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease;"></div>
-
-<!-- Lógica de control para el menú lateral -->
-<script>
-function toggleMenuLateral(abrir) {
-    const panel = document.getElementById('panel-lateral-filtros');
-    const cortina = document.getElementById('cortina-pantalla');
-    if (abrir) {
-        cortina.style.display = 'block';
-        setTimeout(() => { panel.style.right = '0'; cortina.style.opacity = '1'; }, 10);
-    } else {
-        panel.style.right = '-100%';
-        cortina.style.opacity = '0';
-        setTimeout(() => { cortina.style.display = 'none'; }, 300);
-    }
-}
-
-function ejecutarFiltroLateral(categoria, elemento) {
-    // 1. Quita el estado activo visual de los otros botones del panel lateral
-    const botones = document.getElementById('contenedor-botones-laterales').getElementsByTagName('button');
-    for (let btn of botones) { btn.classList.remove('active'); }
-    
-    // 2. Activa visualmente el botón seleccionado
-    elemento.classList.add('active');
-    
-    // 3. Ejecuta la función nativa de tu catálogo pasando los parámetros correctos
-    if (typeof filtrar === 'function') {
-        filtrar(categoria, elemento);
-    }
-    
-    // 4. Cierra el menú lateral automáticamente para ver los cambios de fondo
-    setTimeout(() => { toggleMenuLateral(false); }, 250);
-}
-</script>
-
-const SHEET_ID  = "1Qr3L4zMkiKawzgVKACoTjS8GpbF6IaF6Or6abQgLWb8";
-const WA_NUMBER = "5493512380379";
-const SHEET_NAME = "Productos";
-
-let todosLosProductos = [];
-let categoriaActual = "Todos";
-let tipoActual = "Todos";
-let carruselActual = 0;
-let fotosModal = [];
-
-const waIconSVG = `<svg style="width:14px;height:14px;flex-shrink:0;fill:white;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
-
-function mostrarPagina(pagina) {
-  document.getElementById('page-home').style.display = pagina === 'home' ? 'block' : 'none';
-  document.getElementById('page-catalogo').style.display = pagina === 'catalogo' ? 'block' : 'none';
-  document.getElementById('page-amedida').style.display = pagina === 'amedida' ? 'block' : 'none';
-  document.getElementById('nav-home').classList.toggle('active', pagina === 'home');
-  document.getElementById('nav-catalogo').classList.toggle('active', pagina === 'catalogo');
-  document.getElementById('nav-amedida').classList.toggle('active', pagina === 'amedida');
-  window.scrollTo(0, 0);
-}
-
-function filtrar(cat, btn) {
-  categoriaActual = cat;
-  tipoActual = 'Todos';
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.subtipo-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector('.subtipo-btn')?.classList.add('active');
-  // Mostrar/ocultar submenú según categoría
-  const subtipos = ['Anillos','Aros','Collares','Pulseras','Brazaletes'];
-  renderizarSubtipos(subtipos);
-  renderizar();
-}
-
-function filtrarTipo(tipo, btn) {
-  tipoActual = tipo;
-  document.querySelectorAll('.subtipo-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderizar();
-}
-
-function renderizarSubtipos(tipos) {
-  const container = document.getElementById('subfilters');
-  container.innerHTML = ['Todos', ...tipos].map((t, i) =>
-    `<button class="subtipo-btn${i===0?' active':''}" onclick="filtrarTipo('${t}', this)">${t}</button>`
-  ).join('');
-}
-
-function formatearPrecio(p) {
-  const num = Number(p);
-  if (isNaN(num)) return p;
-  return "$\u00a0" + num.toLocaleString('es-AR');
-}
-
-function linkWA(nombre) {
-  const msg = encodeURIComponent(`Hola Lala! Me interesa la pieza: *${nombre}*. ¿Está disponible?`);
-  return `https://wa.me/${WA_NUMBER}?text=${msg}`;
-}
-
-function parsearFotos(p) {
-  if (p.fotos && p.fotos.startsWith('http')) {
-    return p.fotos.split(';').map(f => f.trim()).filter(f => f.startsWith('http'));
-  }
-  if (p.foto && p.foto.startsWith('http')) {
-    return [p.foto.trim()];
-  }
-  return [];
-}
-
-function abrirModal(idx) {
-  let lista = categoriaActual === 'Todos' ? todosLosProductos : todosLosProductos.filter(x => x.categoria === categoriaActual);
-  if (tipoActual !== 'Todos') lista = lista.filter(x => x.tipo === tipoActual);
-  const p = lista[idx];
-  if (!p) return;
-
-  fotosModal = parsearFotos(p);
-  carruselActual = 0;
-
-  const track = document.getElementById('carousel-track');
-  const dots = document.getElementById('carousel-dots');
-
-  if (fotosModal.length === 0) {
-    track.innerHTML = `<div class="carousel-slide" style="display:flex;align-items:center;justify-content:center;min-width:100%;height:100%;"><span style="font-size:0.7rem;letter-spacing:0.1em;color:var(--stone);text-transform:uppercase;">foto próximamente</span></div>`;
-    dots.innerHTML = '';
-  } else {
-    track.innerHTML = fotosModal.map(f => `<div class="carousel-slide"><img src="${f}" loading="lazy"></div>`).join('');
-    dots.innerHTML = fotosModal.length > 1 ? fotosModal.map((_, i) => `<button class="carousel-dot ${i===0?'active':''}" onclick="irASlide(${i})"></button>`).join('') : '';
-  }
-
-  actualizarCarrusel();
-  document.getElementById('modal-category').textContent = p.categoria || '';
-  document.getElementById('modal-name').textContent = p.nombre;
-  document.getElementById('modal-price').textContent = formatearPrecio(p.precio);
-  document.getElementById('modal-desc').textContent = p.descripcion || '';
-
-  const disponible = String(p.disponible || 'SI').toUpperCase().trim() !== 'NO';
-  document.getElementById('modal-cta').innerHTML = disponible
-    ? `<a class="modal-wa" href="${linkWA(p.nombre)}" target="_blank" rel="noopener">${waIconSVG} Consultar por WhatsApp</a>`
-    : `<div class="modal-agotado">Agotado</div>`;
-
-  document.getElementById('modal-backdrop').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function cerrarModal(e, forzar) {
-  if (forzar || (e && e.target === document.getElementById('modal-backdrop'))) {
-    document.getElementById('modal-backdrop').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-}
-
-function moverCarrusel(dir) {
-  carruselActual = Math.max(0, Math.min(fotosModal.length - 1, carruselActual + dir));
-  actualizarCarrusel();
-}
-
-function irASlide(i) {
-  carruselActual = i;
-  actualizarCarrusel();
-}
-
-function actualizarCarrusel() {
-  document.getElementById('carousel-track').style.transform = `translateX(-${carruselActual * 100}%)`;
-  document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === carruselActual));
-  document.getElementById('btn-prev').classList.toggle('hidden', carruselActual === 0 || fotosModal.length <= 1);
-  document.getElementById('btn-next').classList.toggle('hidden', carruselActual === fotosModal.length - 1 || fotosModal.length <= 1);
-}
-
-document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(null, true); });
-
-function renderizar() {
-  const grid = document.getElementById('grid');
-  let filtrados = categoriaActual === 'Todos'
-    ? todosLosProductos
-    : todosLosProductos.filter(p => p.categoria === categoriaActual);
-  if (tipoActual !== 'Todos') {
-    filtrados = filtrados.filter(p => p.tipo === tipoActual);
-  }
-
-  if (!filtrados.length) {
-    grid.innerHTML = `<div class="empty-state">No hay productos en esta categoría por ahora.<br><a href="https://instagram.com/hechoporlala" target="_blank" style="color:var(--stone);">Seguí @hechoporlala</a> para novedades.</div>`;
-    return;
-  }
-
-  const waSmall = `<svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
-
-  grid.innerHTML = filtrados.map((p, idx) => {
-    const disponible = String(p.disponible || 'SI').toUpperCase().trim() !== 'NO';
-    const fotos = parsearFotos(p);
-    const imgHTML = fotos.length > 0 ? `<img src="${fotos[0]}" alt="${p.nombre}" loading="lazy">` : `<span class="no-foto">foto próximamente</span>`;
-    const overlayHTML = !disponible ? `<div class="agotado-overlay"><span class="agotado-label">Agotado</span></div>` : '';
-    const ctaHTML = disponible ? `<a class="wa-btn" href="${linkWA(p.nombre)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${waSmall} Consultar</a>` : '';
-
-    return `<article class="card" onclick="abrirModal(${idx})">
-      <div class="card-img">${imgHTML}${overlayHTML}</div>
-      <div class="card-body">
-        <div class="card-category">${p.categoria || ''}</div>
-        <div class="card-name">${p.nombre}</div>
-        ${p.descripcion ? `<div class="card-desc">${p.descripcion}</div>` : ''}
-        <div class="card-footer">
-          <div class="card-price">${formatearPrecio(p.precio)}</div>
-          ${ctaHTML}
-        </div>
+  <div id="page-home">
+    <div class="home-hero">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:1.5rem;">
+        <h1 style="font-family:'Inter',sans-serif; font-weight:300; font-size:2.2rem; letter-spacing:0.05em; color:#4A4232;">Hecho por Lala</h1>
+        <p class="home-desc">Joyería de autor, desde mis clásicos de catálogo hasta diseños únicos.</p>
+        <button class="home-cta" onclick="mostrarPagina('catalogo')">Ver Catálogo</button>
       </div>
-    </article>`;
-  }).join('');
-}
+    </div>
+  </div>
 
-async function cargarSheet() {
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}&headers=1&range=A3:I1000`;
-  try {
-    const res = await fetch(url);
-    const text = await res.text();
-    const raw = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/);
-    if (!raw) throw new Error('Formato inesperado');
-    const json = JSON.parse(raw[1]);
-    const cols = json.table.cols.map(c => c.label.toLowerCase().trim());
-    const rows = json.table.rows;
-    todosLosProductos = rows.map(r => {
-      const obj = {};
-      r.c.forEach((cell, i) => { obj[cols[i]] = cell ? String(cell.v).trim() : ''; });
-      return {
-        nombre:      obj['nombre']      || '',
-        categoria:   obj['categoria']   || 'Clásicos',
-        tipo:        obj['tipo']        || '',
-        precio:      obj['precio']      || '',
-        descripcion: obj['descripcion'] || '',
-        foto:        obj['foto']        || '',
-        fotos:       obj['fotos']       || '',
-        disponible:  obj['disponible']  || 'SI',
-      };
-    }).filter(p => p.nombre !== '' && p.nombre !== '→ Nombre del producto');
-    tipoActual = 'Todos';
-    // Asegurar que el botón Todos de subtipos esté activo al cargar
-    const primerSubtipo = document.querySelector('.subtipo-btn');
-    if (primerSubtipo) {
-      document.querySelectorAll('.subtipo-btn').forEach(b => b.classList.remove('active'));
-      primerSubtipo.classList.add('active');
+  <div id="page-catalogo">
+    <div class="cat-header"><span class="cat-title">Colecciones</span></div>
+    <div class="filters">
+      <button class="filter-btn active" onclick="filtrar('Todos', this)">Todos</button>
+      <button class="filter-btn" onclick="filtrar('Clásicos', this)">Clásicos</button>
+      <button class="filter-btn" onclick="filtrar('Exploración', this)">Exploración</button>
+      <button class="filter-btn" onclick="filtrar('Línea Etérea', this)">Línea Etérea</button>
+    </div>
+
+    <div style="text-align: center; margin: 1.5rem 0 2rem;">
+        <button type="button" onclick="toggleMenuLateral(true)" style="font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 1.6rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); cursor: pointer; border-radius: 2px; display: inline-flex; align-items: center; gap: 0.5rem;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            Filtrar por Tipo de Joya
+        </button>
+    </div>
+
+    <div id="panel-lateral-filtros" style="position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--card-bg); box-shadow: -4px 0 25px rgba(0,0,0,0.08); z-index: 9999; transition: right 0.3s ease; display: flex; flex-direction: column; padding: 2rem 1.5rem;">
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 2rem;"><button type="button" onclick="toggleMenuLateral(false)" style="background: none; border: none; font-size: 1.2rem; color: var(--muted); cursor: pointer;">✕</button></div>
+        <span style="font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); margin-bottom: 1rem; font-weight: 500;">Categorías</span>
+        <div id="contenedor-botones-laterales" style="display: flex; flex-direction: column; gap: 0.4rem;">
+            <button class="filter-btn active" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem; border-radius:4px;" onclick="ejecutarFiltroLateral('Todos', this)">Todos los productos</button>
+            <button class="filter-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem; border-radius:4px;" onclick="ejecutarFiltroLateral('Anillos', this)">Anillos</button>
+            <button class="filter-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem; border-radius:4px;" onclick="ejecutarFiltroLateral('Aros', this)">Aros</button>
+            <button class="filter-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem; border-radius:4px;" onclick="ejecutarFiltroLateral('Collares', this)">Collares</button>
+            <button class="filter-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem; border-radius:4px;" onclick="ejecutarFiltroLateral('Pulseras', this)">Pulseras</button>
+            <button class="filter-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem; border-radius:4px;" onclick="ejecutarFiltroLateral('Brazaletes', this)">Brazaletes</button>
+        </div>
+    </div>
+    <div id="cortina-pantalla" onclick="toggleMenuLateral(false)" style="position: fixed; inset: 0; background: rgba(0,0,0,0.2); backdrop-filter: blur(2px); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease;"></div>
+
+    <div class="grid" id="grid">
+      <div class="loading">Cargando catálogo...</div>
+    </div>
+  </div>
+
+   <script>
+    function mostrarPagina(pagina) {
+      document.getElementById('page-home').style.display = pagina === 'home' ? 'block' : 'none';
+      document.getElementById('page-catalogo').style.display = pagina === 'catalogo' ? 'block' : 'none';
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      const activeLink = document.getElementById(`nav-${pagina}`);
+      if(activeLink) activeLink.classList.add('active');
+      window.scrollTo(0,0);
     }
-    renderizar();
-  } catch(err) {
-    document.getElementById('grid').innerHTML = `<div class="empty-state">No se pudo cargar el catálogo.</div>`;
-    console.error('Error:', err);
-  }
-}
 
-cargarSheet();
-</script>
+    function toggleMenuLateral(abrir) {
+        const panel = document.getElementById('panel-lateral-filtros');
+        const cortina = document.getElementById('cortina-pantalla');
+        if (abrir) {
+            cortina.style.display = 'block';
+            setTimeout(() => { panel.style.right = '0'; cortina.style.opacity = '1'; }, 10);
+        } else {
+            panel.style.right = '-100%';
+            cortina.style.opacity = '0';
+            setTimeout(() => { cortina.style.display = 'none'; }, 300);
+        }
+    }
+
+    function ejecutarFiltroLateral(categoria, elemento) {
+        const botones = document.getElementById('contenedor-botones-laterales').getElementsByTagName('button');
+        for (let btn of botones) { btn.classList.remove('active'); }
+        elemento.classList.add('active');
+        
+        // Simula la pulsación del botón que espera tu lógica de JavaScript
+        if (typeof filtrar === 'function') {
+            filtrar(categoria, elemento);
+        }
+        setTimeout(() => { toggleMenuLateral(false); }, 250);
+    }
+  </script>
 </body>
 </html>
