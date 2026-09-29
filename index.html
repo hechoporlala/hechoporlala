@@ -297,7 +297,7 @@
     <button class="filter-btn" onclick="filtrar('Línea Etérea', this)">Línea Etérea</button>
   </div>
 
-<!-- ── NUEVO MENÚ LATERAL ELEGANTE (REEMPLAZA EL DESPLEGABLE ANTERIOR) ── -->
+<!-- ── NUEVO MENÚ LATERAL ELEGANTE CORREGIDO ── -->
 <div style="text-align: center; margin: 1.5rem 0 0.5rem;">
     <!-- Botón minimalista de Filtrar -->
     <button type="button" onclick="toggleMenuLateral(true)" style="font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 1.6rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); cursor: pointer; border-radius: 2px; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s;">
@@ -306,7 +306,7 @@
     </button>
 </div>
 
-<!-- Panel Lateral Desplazable (Oculto por defecto) -->
+<!-- Panel Lateral Desplazable -->
 <div id="panel-lateral-filtros" style="position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--card-bg); box-shadow: -4px 0 25px rgba(0,0,0,0.08); z-index: 9999; transition: right 0.3s ease; display: flex; flex-direction: column; padding: 2rem 1.5rem;">
     <!-- Botón de Cerrar -->
     <div style="display: flex; justify-content: flex-end; margin-bottom: 2rem;">
@@ -315,9 +315,8 @@
     
     <span style="font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); margin-bottom: 1rem; font-weight: 500;">Joyas</span>
     
-    <!-- Lista de Categorías en formato Vertical Limpio -->
+    <!-- Lista de Categorías -->
     <div id="contenedor-botones-laterales" style="display: flex; flex-direction: column; gap: 0.4rem;">
-        <!-- Se eliminó el duplicado de 'Todos' y usa la función original 'filtrar' en mayúscula -->
         <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Todos', this)">Todos los productos</button>
         <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Anillos', this)">Anillos</button>
         <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Aros', this)">Aros</button>
@@ -326,6 +325,41 @@
         <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Brazaletes', this)">Brazaletes</button>
     </div>
 </div>
+
+<!-- Fondo oscuro difuminado -->
+<div id="cortina-pantalla" onclick="toggleMenuLateral(false)" style="position: fixed; inset: 0; background: rgba(0,0,0,0.2); backdrop-filter: blur(2px); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease;"></div>
+
+<!-- CONTENEDOR ORIGINAL DEL CATÁLOGO (Esto repara el bloqueo de la página) -->
+<div class="grid" id="grid">
+    <div class="loading">Cargando catálogo...</div>
+</div>
+
+<!-- Lógica de control para el menú lateral -->
+<script>
+function toggleMenuLateral(abrir) {
+    const panel = document.getElementById('panel-lateral-filtros');
+    const cortina = document.getElementById('cortina-pantalla');
+    if (abrir) {
+        cortina.style.display = 'block';
+        setTimeout(() => { panel.style.right = '0'; cortina.style.opacity = '1'; }, 10);
+    } else {
+        panel.style.right = '-100%';
+        cortina.style.opacity = '0';
+        setTimeout(() => { cortina.style.display = 'none'; }, 300);
+    }
+}
+
+function ejecutarFiltroLateral(categoria, elemento) {
+    const botones = document.getElementById('contenedor-botones-laterales').getElementsByTagName('button');
+    for (let btn of botones) { btn.classList.remove('active'); }
+    elemento.classList.add('active');
+    if (typeof filtrar === 'function') {
+        filtrar(categoria, elemento);
+    }
+    setTimeout(() => { toggleMenuLateral(false); }, 250);
+}
+</script>
+
 
 <!-- Fondo oscuro difuminado al abrirse -->
 <div id="cortina-pantalla" onclick="toggleMenuLateral(false)" style="position: fixed; inset: 0; background: rgba(0,0,0,0.2); backdrop-filter: blur(2px); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease;"></div>
