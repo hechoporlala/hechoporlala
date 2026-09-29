@@ -297,68 +297,72 @@
     <button class="filter-btn" onclick="filtrar('Línea Etérea', this)">Línea Etérea</button>
   </div>
 
-<!-- NUEVO MENÚ DESPLEGABLE CORRECTO -->
-<div class="filter-group" style="margin: 15px 0; text-align: center;">
-    <select id="category-select" onchange="filtrar(this.value, this)" style="padding: 10px 15px; font-family: inherit; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; background-color: #fff; width: 80%; max-width: 250px; cursor: pointer;">
-        <option value="Todos">Filtrar por categoría...</option>
-        <option value="Anillos">Anillos</option>
-        <option value="Aros">Aros</option>
-        <option value="Collares">Collares</option>
-        <option value="Pulseras">Pulseras</option>
-        <option value="Brazaletes">Brazaletes</option>
-    </select>
+<!-- ── NUEVO MENÚ LATERAL ELEGANTE (REEMPLAZA EL DESPLEGABLE ANTERIOR) ── -->
+<div style="text-align: center; margin: 1.5rem 0 0.5rem;">
+    <!-- Botón minimalista de Filtrar -->
+    <button type="button" onclick="toggleMenuLateral(true)" style="font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 1.6rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); cursor: pointer; border-radius: 2px; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        Filtrar por Categoría
+    </button>
 </div>
 
-
-
-  <div class="grid" id="grid">
-    <div class="loading">Cargando catálogo...</div>
-  </div>
-
-  <footer>
-    Hecho a mano en Córdoba · <a href="https://instagram.com/hechoporlala" target="_blank">@hechoporlala</a>
-  </footer>
-</div>
-
-<!-- A MEDIDA -->
-<div id="page-amedida" style="display:none;">
-  <div class="amedida-hero">
-    <div class="amedida-content">
-      <div class="amedida-label">A medida</div>
-      <h2 class="amedida-title">¿Tenés una idea en mente?</h2>
-      <p class="amedida-desc">Hablame y la diseñamos juntas. Trabajo con vos desde el concepto hasta la pieza terminada, en bronce o alpaca, pensada especialmente para vos.</p>
-      <a class="amedida-btn" href="https://wa.me/5493512380379?text=Hola%20Lala!%20Me%20gustaría%20encargar%20una%20pieza%20a%20medida." target="_blank" rel="noopener">
-        <svg style="width:16px;height:16px;fill:white;flex-shrink:0;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Escribime por WhatsApp
-      </a>
+<!-- Panel Lateral Desplazable (Oculto por defecto) -->
+<div id="panel-lateral-filtros" style="position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--card-bg); box-shadow: -4px 0 25px rgba(0,0,0,0.08); z-index: 9999; transition: right 0.3s ease; display: flex; flex-direction: column; padding: 2rem 1.5rem;">
+    <!-- Botón de Cerrar -->
+    <div style="display: flex; justify-content: flex-end; margin-bottom: 2rem;">
+        <button type="button" onclick="toggleMenuLateral(false)" style="background: none; border: none; font-size: 1.2rem; color: var(--muted); cursor: pointer; padding: 0.5rem;">✕</button>
     </div>
-  </div>
-  <footer>
-    Hecho a mano en Córdoba · <a href="https://instagram.com/hechoporlala" target="_blank">@hechoporlala</a>
-  </footer>
+    
+    <span style="font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); margin-bottom: 1rem; font-weight: 500;">Joyas</span>
+    
+    <!-- Lista de Categorías en formato Vertical Limpio -->
+    <div id="contenedor-botones-laterales" style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <!-- Se eliminó el duplicado de 'Todos' y usa la función original 'filtrar' en mayúscula -->
+        <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Todos', this)">Todos los productos</button>
+        <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Anillos', this)">Anillos</button>
+        <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Aros', this)">Aros</button>
+        <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Collares', this)">Collares</button>
+        <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Pulseras', this)">Pulseras</button>
+        <button class="subtipo-btn" style="text-align: left; width: 100%; padding: 0.7rem 1rem; font-size: 0.75rem;" onclick="ejecutarFiltroLateral('Brazaletes', this)">Brazaletes</button>
+    </div>
 </div>
 
-<!-- MODAL -->
-<div class="modal-backdrop" id="modal-backdrop" onclick="cerrarModal(event)">
-  <div class="modal" id="modal">
-    <button class="modal-close" onclick="cerrarModal(null, true)">×</button>
-    <div class="modal-gallery" id="modal-gallery">
-      <div class="carousel-track" id="carousel-track"></div>
-      <button class="carousel-btn prev" id="btn-prev" onclick="moverCarrusel(-1)">&#8249;</button>
-      <button class="carousel-btn next" id="btn-next" onclick="moverCarrusel(1)">&#8250;</button>
-      <div class="carousel-dots" id="carousel-dots"></div>
-    </div>
-    <div class="modal-info">
-      <div class="modal-category" id="modal-category"></div>
-      <div class="modal-name" id="modal-name"></div>
-      <div class="modal-price" id="modal-price"></div>
-      <div class="modal-desc" id="modal-desc"></div>
-      <div id="modal-cta"></div>
-    </div>
-  </div>
-</div>
+<!-- Fondo oscuro difuminado al abrirse -->
+<div id="cortina-pantalla" onclick="toggleMenuLateral(false)" style="position: fixed; inset: 0; background: rgba(0,0,0,0.2); backdrop-filter: blur(2px); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease;"></div>
 
+<!-- Lógica de control para el menú lateral -->
 <script>
+function toggleMenuLateral(abrir) {
+    const panel = document.getElementById('panel-lateral-filtros');
+    const cortina = document.getElementById('cortina-pantalla');
+    if (abrir) {
+        cortina.style.display = 'block';
+        setTimeout(() => { panel.style.right = '0'; cortina.style.opacity = '1'; }, 10);
+    } else {
+        panel.style.right = '-100%';
+        cortina.style.opacity = '0';
+        setTimeout(() => { cortina.style.display = 'none'; }, 300);
+    }
+}
+
+function ejecutarFiltroLateral(categoria, elemento) {
+    // 1. Quita el estado activo visual de los otros botones del panel lateral
+    const botones = document.getElementById('contenedor-botones-laterales').getElementsByTagName('button');
+    for (let btn of botones) { btn.classList.remove('active'); }
+    
+    // 2. Activa visualmente el botón seleccionado
+    elemento.classList.add('active');
+    
+    // 3. Ejecuta la función nativa de tu catálogo pasando los parámetros correctos
+    if (typeof filtrar === 'function') {
+        filtrar(categoria, elemento);
+    }
+    
+    // 4. Cierra el menú lateral automáticamente para ver los cambios de fondo
+    setTimeout(() => { toggleMenuLateral(false); }, 250);
+}
+</script>
+
 const SHEET_ID  = "1Qr3L4zMkiKawzgVKACoTjS8GpbF6IaF6Or6abQgLWb8";
 const WA_NUMBER = "5493512380379";
 const SHEET_NAME = "Productos";
