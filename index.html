@@ -7,6 +7,22 @@
 <meta name="description" content="Joyería de autor que explora las texturas y posibilidades del metal. Córdoba, Argentina.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+ /* Arreglo para el menú amontonado en celulares */
+@media (max-width: 480px) {
+    header, nav {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 12px !important;
+        padding: 10px 5px !important;
+    }
+    nav a {
+        font-size: 11px !important;
+        letter-spacing: 1px !important;
+    }
+}
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
