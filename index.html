@@ -297,14 +297,19 @@
     <button class="filter-btn" onclick="filtrar('Línea Etérea', this)">Línea Etérea</button>
   </div>
 
-  <div class="subfilters" id="subfilters">
-    <button class="subtipo-btn active" onclick="filtrarTipo('Todos', this)">Todos</button>
-    <button class="subtipo-btn" onclick="filtrarTipo('Anillos', this)">Anillos</button>
-    <button class="subtipo-btn" onclick="filtrarTipo('Aros', this)">Aros</button>
-    <button class="subtipo-btn" onclick="filtrarTipo('Collares', this)">Collares</button>
-    <button class="subtipo-btn" onclick="filtrarTipo('Pulseras', this)">Pulseras</button>
-    <button class="subtipo-btn" onclick="filtrarTipo('Brazaletes', this)">Brazaletes</button>
-  </div>
+<!-- NUEVO MENÚ DESPLEGABLE CORRECTO -->
+<div class="filter-group" style="margin: 15px 0; text-align: center;">
+    <select id="category-select" onchange="filtrar(this.value, this)" style="padding: 10px 15px; font-family: inherit; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; background-color: #fff; width: 80%; max-width: 250px; cursor: pointer;">
+        <option value="Todos">Filtrar por categoría...</option>
+        <option value="Anillos">Anillos</option>
+        <option value="Aros">Aros</option>
+        <option value="Collares">Collares</option>
+        <option value="Pulseras">Pulseras</option>
+        <option value="Brazaletes">Brazaletes</option>
+    </select>
+</div>
+
+
 
   <div class="grid" id="grid">
     <div class="loading">Cargando catálogo...</div>
