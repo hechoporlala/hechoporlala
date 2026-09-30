@@ -308,22 +308,23 @@
     line-height: 0;
   }
 
-  /* ── A MEDIDA ── */
-  .amedida-hero {
-    min-height: calc(100vh - 60px);
+  /* ── SECCIÓN A MEDIDA ── */
+  .amedida-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3.5rem 2rem 5rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 4rem 2rem;
-    background: var(--bg);
+    gap: 3.2rem;
   }
-  .amedida-content {
-    max-width: 520px;
+  .amedida-header {
+    max-width: 580px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.1rem;
+    gap: 1rem;
   }
   .amedida-label {
     font-size: 0.68rem;
@@ -334,7 +335,7 @@
   }
   .amedida-title {
     font-size: 1.65rem;
-    font-weight: 500;
+    font-weight: 400;
     color: var(--text);
     line-height: 1.35;
     letter-spacing: 0.01em;
@@ -343,7 +344,6 @@
     font-size: 0.88rem;
     color: var(--muted);
     line-height: 1.8;
-    max-width: 440px;
   }
   .amedida-btn {
     display: inline-flex;
@@ -359,13 +359,77 @@
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
-    margin-top: 0.6rem;
+    margin-top: 0.5rem;
     transition: opacity 0.15s, transform 0.15s;
     box-shadow: 0 2px 10px rgba(37,211,102,0.18);
   }
   .amedida-btn:hover {
     opacity: 0.9;
     transform: translateY(-1px);
+  }
+
+  .amedida-gallery-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .amedida-gallery-title {
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--stone);
+    font-weight: 500;
+  }
+  .amedida-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+    width: 100%;
+  }
+  .amedida-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s;
+  }
+  .amedida-card:hover {
+    border-color: var(--stone);
+  }
+  .amedida-card-img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: var(--stone-light);
+    overflow: hidden;
+  }
+  .amedida-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+  .amedida-card:hover .amedida-card-img img {
+    transform: scale(1.03);
+  }
+  .amedida-card-body {
+    padding: 0.9rem 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .amedida-card-name {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .amedida-card-tag {
+    font-size: 0.72rem;
+    color: var(--stone);
+    letter-spacing: 0.04em;
   }
 
   /* ── GRILLA CATÁLOGO ── */
@@ -425,6 +489,10 @@
   .modal-wa:hover { opacity: 0.86; }
   .modal-agotado { font-size: 0.75rem; color: var(--muted); margin-top: 1.2rem; letter-spacing: 0.08em; text-transform: uppercase; }
 
+  @media (max-width: 768px) {
+    .amedida-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  }
+
   @media (max-width: 600px) {
     nav { padding: 0.9rem 1rem; }
     .nav-left { gap: 0.85rem; }
@@ -444,7 +512,11 @@
     .card-footer { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
     .wa-btn { font-size: 0.65rem; padding: 0.32rem 0.55rem; }
     .home-hero { min-height: 88vh; padding: 3rem 1.5rem; }
+
+    /* Mobile A Medida */
+    .amedida-container { padding: 2.5rem 1.2rem 4rem; gap: 2.5rem; }
     .amedida-title { font-size: 1.35rem; }
+    .amedida-grid { grid-template-columns: 1fr; max-width: 360px; }
   }
 </style>
 </head>
@@ -513,19 +585,59 @@
   <div class="drawer-content" id="drawer-content"></div>
 </aside>
 
-<!-- A MEDIDA -->
+<!-- A MEDIDA RENOVADA -->
 <div id="page-amedida">
-  <div class="amedida-hero">
-    <div class="amedida-content">
-      <div class="amedida-label">A medida</div>
-      <h2 class="amedida-title">¿Tenés una idea en mente?</h2>
-      <p class="amedida-desc">Hablame y la diseñamos juntas. Trabajo con vos desde el concepto hasta la pieza terminada, en bronce o alpaca, pensada especialmente para vos.</p>
+  <div class="amedida-container">
+    <div class="amedida-header">
+      <span class="amedida-label">Joyería personalizada</span>
+      <h2 class="amedida-title">Creamos una pieza pensada para vos</h2>
+      <p class="amedida-desc">Podemos transformar una idea, un recuerdo o una frase especial en una joya única. Trabajamos juntas en bronce o alpaca, explorando grabados a mano, engarces de piedras y terminaciones artesanales.</p>
       <a class="amedida-btn" href="https://wa.me/5493512380379?text=Hola%20Lala!%20Me%20gustar%C3%ADa%20encargar%20una%20pieza%20a%20medida." target="_blank" rel="noopener">
-        <svg style="width:16px;height:16px;fill:white;flex-shrink:0;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Escribime por WhatsApp
+        <svg style="width:15px;height:15px;fill:white;flex-shrink:0;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Consultar por WhatsApp
       </a>
     </div>
+
+    <!-- Ejemplos de piezas personalizadas -->
+    <div class="amedida-gallery-header">
+      <span class="amedida-gallery-title">Algunos encargos especiales</span>
+    </div>
+    <div class="amedida-grid">
+      <!-- Pulsera con palabra grabada -->
+      <article class="amedida-card">
+        <div class="amedida-card-img">
+          <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/v1790731366/IMG_5143.jpg" alt="Pulsera con palabra grabada" loading="lazy">
+        </div>
+        <div class="amedida-card-body">
+          <div class="amedida-card-name">Pulsera Grabada</div>
+          <div class="amedida-card-tag">Palabra o frase personalizada</div>
+        </div>
+      </article>
+
+      <!-- Collar con piedra engarzada -->
+      <article class="amedida-card">
+        <div class="amedida-card-img">
+          <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/v1790731149/IMG_1477.jpg" alt="Collar con piedra engarzada" loading="lazy">
+        </div>
+        <div class="amedida-card-body">
+          <div class="amedida-card-name">Collar con Piedra Engarzada</div>
+          <div class="amedida-card-tag">Diseño único según la gema</div>
+        </div>
+      </article>
+
+      <!-- Medalla para mascotas -->
+      <article class="amedida-card">
+        <div class="amedida-card-img">
+          <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/v1790731368/IMG_5568.jpg" alt="Medalla para mascotas" loading="lazy">
+        </div>
+        <div class="amedida-card-body">
+          <div class="amedida-card-name">Medalla para Mascotas</div>
+          <div class="amedida-card-tag">Grabada con nombre y contacto</div>
+        </div>
+      </article>
+    </div>
   </div>
+
   <footer>
     Hecho a mano en Córdoba · <a href="https://instagram.com/hechoporlala" target="_blank">@hechoporlala</a>
   </footer>
