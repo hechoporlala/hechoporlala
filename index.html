@@ -626,7 +626,7 @@
     <div class="amedida-grid">
       <article class="amedida-card">
         <div class="amedida-card-img">
-          <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/v1790731366/IMG_5143.jpg" alt="Pulsera con palabra grabada" loading="lazy">
+          <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/f_auto,q_auto,w_600/v1790731366/IMG_5143.jpg" alt="Pulsera con palabra grabada" loading="lazy">
         </div>
         <div class="amedida-card-body">
           <div class="amedida-card-name">Pulsera Grabada</div>
@@ -636,7 +636,7 @@
 
       <article class="amedida-card">
         <div class="amedida-card-img">
-          <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/v1790731149/IMG_1477.jpg" alt="Collar con piedra engarzada" loading="lazy">
+          <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/f_auto,q_auto,w_600/v1790731149/IMG_1477.jpg" alt="Collar con piedra engarzada" loading="lazy">
         </div>
         <div class="amedida-card-body">
           <div class="amedida-card-name">Collar con Piedra Engarzada</div>
@@ -646,7 +646,7 @@
 
       <article class="amedida-card">
         <div class="amedida-card-img">
-          <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/v1790731368/IMG_5568.jpg" alt="Medalla para mascotas" loading="lazy">
+          <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/f_auto,q_auto,w_600/v1790731368/IMG_5568.jpg" alt="Medalla para mascotas" loading="lazy">
         </div>
         <div class="amedida-card-body">
           <div class="amedida-card-name">Medalla para Mascotas</div>
@@ -673,7 +673,7 @@
       <div class="collab-grid">
         <article class="amedida-card">
           <div class="amedida-card-img">
-            <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/v1790731770/WhatsApp_Image_2026-09-29_at_6.28.15_PM.jpg" alt="Herradura para vestido" loading="lazy">
+            <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/f_auto,q_auto,w_600/v1790731770/WhatsApp_Image_2026-09-29_at_6.28.15_PM.jpg" alt="Herradura para vestido" loading="lazy">
           </div>
           <div class="amedida-card-body">
             <div class="amedida-card-name">Herradura de Unión</div>
@@ -683,7 +683,7 @@
 
         <article class="amedida-card">
           <div class="amedida-card-img">
-            <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/v1790732007/PHOTO-2025-11-16-15-42-51.jpg" alt="Hebilla decorativa para prendas" loading="lazy">
+            <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/f_auto,q_auto,w_600/v1790732007/PHOTO-2025-11-16-15-42-51.jpg" alt="Hebilla decorativa para prendas" loading="lazy">
           </div>
           <div class="amedida-card-body">
             <div class="amedida-card-name">Hebilla Decorativa</div>
@@ -693,7 +693,7 @@
 
         <article class="amedida-card">
           <div class="amedida-card-img">
-            <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/v1790732017/PHOTO-2026-04-24-13-02-01.jpg" alt="Hebilla decorativa para vestidos de fiesta" loading="lazy">
+            <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/f_auto,q_auto,w_600/v1790732017/PHOTO-2026-04-24-13-02-01.jpg" alt="Hebilla decorativa para vestidos de fiesta" loading="lazy">
           </div>
           <div class="amedida-card-body">
             <div class="amedida-card-name">Hebilla para Vestidos</div>
@@ -703,7 +703,7 @@
 
         <article class="amedida-card">
           <div class="amedida-card-img">
-            <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/v1790732057/PHOTO-2026-04-24-17-11-56.jpg" alt="Hebilla con textura artesanal" loading="lazy">
+            <img src="https://res.cloudinary.com/tgvqd4pc/image/upload/f_auto,q_auto,w_600/v1790732057/PHOTO-2026-04-24-17-11-56.jpg" alt="Hebilla con textura artesanal" loading="lazy">
           </div>
           <div class="amedida-card-body">
             <div class="amedida-card-name">Hebilla Texturada</div>
@@ -820,12 +820,18 @@ function linkWA(nombre) {
   return `https://wa.me/${WA_NUMBER}?text=${msg}`;
 }
 
+// ── FUNCIÓN DE OPTIMIZACIÓN CLOUDINARY ──
+function optimizarCloudinary(url, ancho = 600) {
+  if (!url || !url.includes('cloudinary.com') || url.includes('f_auto')) return url;
+  return url.replace('/image/upload/', `/image/upload/f_auto,q_auto,w_${ancho}/`);
+}
+
 function parsearFotos(p) {
   if (p.fotos && p.fotos.startsWith('http')) {
-    return p.fotos.split(';').map(f => f.trim()).filter(f => f.startsWith('http'));
+    return p.fotos.split(';').map(f => f.trim()).filter(f => f.startsWith('http')).map(f => optimizarCloudinary(f));
   }
   if (p.foto && p.foto.startsWith('http')) {
-    return [p.foto.trim()];
+    return [optimizarCloudinary(p.foto.trim())];
   }
   return [];
 }
