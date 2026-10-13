@@ -732,36 +732,112 @@ function actualizarCarrusel() {
 }
 
 // ── CARGA ASINCRÓNICA DE GOOGLE SHEETS ──
-async function cargarProductos() {
-  const urlGviz = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+function cargarProductos() {
+  const urlGviz = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=responseHandler:procesarDatosGviz&sheet=${encodeURIComponent(SHEET_NAME)}`;
   
+  // Usamos inyección de script para máxima velocidad y evitar bloqueos de CORS
+  const scriptTag = document.createElement('script');
+  scriptTag.src = urlGviz;
+  scriptTag.onerror = () => {
+    console.warn("Fallo el script tag de gviz, intentando CSV...");
+    cargarCSVFallback();
+  };
+  document.body.appendChild(scriptTag);
+}
+
+// Callback global llamado automáticamente por Google Sheets
+window.procesarDatosGviz = function(data) {
   try {
-    const res = await fetch(urlGviz);
-    const txt = await res.text();
-    
-    const jsonString = txt.substring(txt.indexOf('{'), txt.lastIndexOf('}') + 1);
-    const data = JSON.parse(jsonString);
+    if (!data || !data.table || !data.table.rows) {
+      throw new Error("Estructura de planilla no válida");
+    }
 
-    const cols = data.table.cols.map(c => (c && c.label ? c.label.toLowerCase().trim() : ''));
     const rows = data.table.rows;
+    if (rows.length === 0) {
+      document.getElementById('grid').innerHTML = `<div class="empty-state">No hay productos cargados en la planilla.</div>`;
+      return;
+    }
 
-    todosLosProductos = rows.map((r, i) => {
-      const obj = { _id: i + 1 };
-      r.c.forEach((cell, idx) => {
-        const colName = cols[idx] || `col_${idx}`;
-        obj[colName] = cell ? (cell.v !== null ? cell.v : '') : '';
+    // Detectamos las columnas ya sea por etiqueta (label) o leyendo la fila 0 si los nombres están ahí
+    let mapaCols = {};
+    data.table.cols.forEach((col, idx) => {
+      if (col && col.label) {
+        const key = normalizarTexto(col.label);
+        mapaCols[key] = idx;
+      }
+    });
+
+    let indiceInicio = 0;
+    // Si la planilla no tenía encabezados definidos formalmente en Google, revisamos la primera fila
+    const keysEncontradas = Object.keys(mapaCols);
+    if (!keysEncontradas.includes('nombre')) {
+      const primeraFila = rows[0].c;
+      primeraFila.forEach((celda, idx) => {
+        if (celda && celda.v) {
+          mapaCols[normalizarTexto(celda.v)] = idx;
+        }
       });
-      return obj;
-    }).filter(p => p.nombre && String(p.nombre).trim().length > 0);
+      indiceInicio = 1; // La primera fila eran los títulos
+    }
+
+    // Función auxiliar para sacar el valor sin importar si se llama 'nombre', 'producto', etc.
+    function obtenerValor(celdas, posiblesNombres, colDefault) {
+      for (const nom of posiblesNombres) {
+        if (mapaCols[nom] !== undefined && celdas[mapaCols[nom]]) {
+          return celdas[mapaCols[nom]].v !== null ? celdas[mapaCols[nom]].v : '';
+        }
+      }
+      if (colDefault !== undefined && celdas[colDefault]) {
+        return celdas[colDefault].v !== null ? celdas[colDefault].v : '';
+      }
+      return '';
+    }
+
+    todosLosProductos = [];
+
+    for (let i = indiceInicio; i < rows.length; i++) {
+      const c = rows[i].c;
+      if (!c) continue;
+
+      // Lee buscando por nombre de columna flexible o por posición (Col 0: Nombre, Col 1: Categoría/Tipo...)
+      const nombre = String(obtenerValor(c, ['nombre', 'producto', 'pieza', 'titulo'], 0)).trim();
+      if (!nombre) continue; // Si la fila está vacía, la saltea
+
+      const categoria = String(obtenerValor(c, ['categoria', 'linea', 'coleccion'], 1)).trim();
+      const tipo = String(obtenerValor(c, ['tipo', 'subtipo', 'categoria_tipo'], 2)).trim();
+      const precio = obtenerValor(c, ['precio', 'valor', 'monto'], 3);
+      const descripcion = String(obtenerValor(c, ['descripcion', 'desc', 'detalle'], 4)).trim();
+      const fotos = String(obtenerValor(c, ['fotos', 'foto', 'imagenes', 'imagen', 'link_foto', 'url'], 5)).trim();
+      const stock = String(obtenerValor(c, ['disponible', 'stock', 'agotado', 'disponibilidad'], 6)).trim();
+
+      todosLosProductos.push({
+        _id: i + 1,
+        nombre: nombre,
+        categoria: categoria || 'Clásicos',
+        tipo: tipo || 'Otros',
+        precio: precio,
+        descripcion: descripcion,
+        fotos: fotos,
+        disponible: stock
+      });
+    }
 
     const subtipos = ['Anillos', 'Aros', 'Collares', 'Pulseras', 'Brazaletes'];
     renderizarSubtipos(subtipos);
     renderizar();
 
   } catch (err) {
-    console.warn("Fallo gviz, intentando exportación CSV directa...", err);
+    console.error("Error al procesar los datos de Sheets:", err);
     cargarCSVFallback();
   }
+};
+
+function normalizarTexto(txt) {
+  return String(txt || '')
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/g, "");
 }
 
 async function cargarCSVFallback() {
@@ -769,20 +845,32 @@ async function cargarCSVFallback() {
   try {
     const res = await fetch(urlCSV);
     const csv = await res.text();
-    const lineas = csv.split('\n').filter(l => l.trim().length > 0);
+    const lineas = csv.split('\n').map(l => l.trim()).filter(l => l.length > 0);
     if (lineas.length < 2) throw new Error("Planilla vacía");
 
-    const headers = lineas[0].split(',').map(h => h.replace(/^"|"$/g, '').toLowerCase().trim());
+    const cabecera = lineas[0].split(',').map(h => normalizarTexto(h));
     
-    todosLosProductos = lineas.slice(1).map((linea, i) => {
-      const valores = linea.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
-      const obj = { _id: i + 1 };
-      headers.forEach((h, idx) => {
-        const val = valores[idx] ? valores[idx].replace(/^"|"$/g, '').trim() : '';
-        obj[h] = val;
+    todosLosProductos = [];
+    for (let i = 1; i < lineas.length; i++) {
+      const valores = lineas[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
+      const item = { _id: i };
+      cabecera.forEach((h, idx) => {
+        item[h] = valores[idx] ? valores[idx].replace(/^"|"$/g, '').trim() : '';
       });
-      return obj;
-    }).filter(p => p.nombre && p.nombre.trim().length > 0);
+
+      if (item.nombre || item.producto) {
+        todosLosProductos.push({
+          _id: i,
+          nombre: item.nombre || item.producto || 'Pieza',
+          categoria: item.categoria || item.linea || 'Clásicos',
+          tipo: item.tipo || 'Otros',
+          precio: item.precio || '',
+          descripcion: item.descripcion || item.desc || '',
+          fotos: item.fotos || item.foto || item.imagen || '',
+          disponible: item.disponible || item.stock || 'si'
+        });
+      }
+    }
 
     const subtipos = ['Anillos', 'Aros', 'Collares', 'Pulseras', 'Brazaletes'];
     renderizarSubtipos(subtipos);
@@ -790,7 +878,7 @@ async function cargarCSVFallback() {
   } catch (e) {
     const grid = document.getElementById('grid');
     if (grid) {
-      grid.innerHTML = `<div class="empty-state">No se pudo cargar el catálogo. Verificá que la planilla de Google Sheets esté compartida como pública ("Cualquiera con el enlace").</div>`;
+      grid.innerHTML = `<div class="empty-state">No se pudieron cargar los productos. Asegurate de que la planilla tenga el acceso en <strong>"Cualquier persona con el enlace (Lector)"</strong>.</div>`;
     }
   }
 }
@@ -798,6 +886,3 @@ async function cargarCSVFallback() {
 document.addEventListener('DOMContentLoaded', () => {
   cargarProductos();
 });
-</script>
-</body>
-</html>
