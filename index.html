@@ -500,7 +500,7 @@ let tipoActual = "Todos";
 let carruselActual = 0;
 let fotosModal = [];
 
-const waIconSVG = `<svg style="width:14px;height:14px;flex-shrink:0;fill:white;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+const waIconSVG = `<svg style="width:14px;height:14px;flex-shrink:0;fill:white;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
 
 function mostrarSeccion(sec) {
   document.getElementById('view-catalogo').style.display = sec === 'catalogo' ? 'block' : 'none';
@@ -528,9 +528,9 @@ function filtrar(cat, btn) {
   categoriaActual = cat;
   tipoActual = 'Todos';
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
   
-  const subtipos = ['Anillos','Aros','Collares','Pulseras','Brazaletes'];
+  const subtipos = ['Anillos', 'Aros', 'Collares', 'Pulseras', 'Brazaletes'];
   renderizarSubtipos(subtipos);
   renderizar();
 }
@@ -550,14 +550,10 @@ function cerrarDrawerTipos() {
 }
 
 function filtrarTipo(tipo) {
-  if (tipoActual === tipo) {
-    tipoActual = 'Todos';
-  } else {
-    tipoActual = tipo;
-  }
+  tipoActual = (tipoActual === tipo) ? 'Todos' : tipo;
   mostrarSeccion('catalogo');
   cerrarDrawerTipos();
-  const subtipos = ['Anillos','Aros','Collares','Pulseras','Brazaletes'];
+  const subtipos = ['Anillos', 'Aros', 'Collares', 'Pulseras', 'Brazaletes'];
   renderizarSubtipos(subtipos);
   renderizar();
   scrollHaciaCatalogo();
@@ -565,32 +561,243 @@ function filtrarTipo(tipo) {
 
 function renderizarSubtipos(tipos) {
   const content = document.getElementById('drawer-content');
+  if (!content) return;
   content.innerHTML = tipos.map(t =>
     `<button class="drawer-item${tipoActual === t ? ' active' : ''}" onclick="filtrarTipo('${t}')">${t}</button>`
   ).join('');
 }
 
 function formatearPrecio(p) {
-  const num = Number(p);
-  if (isNaN(num)) return p;
+  if (!p) return '';
+  const limpio = String(p).replace(/[^0-9.-]+/g, "");
+  const num = Number(limpio);
+  if (isNaN(num) || num === 0) return p;
   return "$\u00a0" + num.toLocaleString('es-AR');
 }
 
 function linkWA(nombre) {
-  const msg = encodeURIComponent(`Hola Lala! Me interesa la pieza: *${nombre}*. ¿Está disponible?`);
+  const msg = encodeURIComponent(`¡Hola Lala! Me interesa la pieza: *${nombre}*. ¿Está disponible?`);
   return `https://wa.me/${WA_NUMBER}?text=${msg}`;
 }
 
-function optimizarCloudinary(url, ancho = 750) {
-  if (!url || !url.includes('cloudinary.com')) return url;
+function optimizarCloudinary(url, ancho = 500) {
+  if (!url || typeof url !== 'string' || !url.includes('cloudinary.com')) return url;
   if (url.includes('/image/upload/')) {
-    return url.replace(/\/image\/upload\/(?:[^\/]+\/)?/, `/image/upload/f_auto,q_auto:good,w_${ancho},dpr_auto/`);
+    return url.replace(/\/image\/upload\/(?:[^\/]+\/)?/, `/image/upload/f_auto,q_auto:good,w_${ancho},c_limit/`);
   }
   return url;
 }
 
 function parsearFotos(p) {
-  if (p.fotos && p.fotos.startsWith('http')) {
-    return p.fotos.split(';').map(f => f.trim()).filter(f => f.startsWith('http'));
+  if (!p) return [];
+  const fotosRaw = p.fotos || p.foto || p.imagen || p.imagenes || '';
+  if (typeof fotosRaw === 'string' && fotosRaw.trim().length > 0) {
+    return fotosRaw
+      .split(/[;,]/)
+      .map(f => f.trim())
+      .filter(f => f.startsWith('http'));
   }
-  if (p.foto && p.foto.startsWith('http')) {
+  return [];
+}
+
+function renderizar() {
+  const grid = document.getElementById('grid');
+  if (!grid) return;
+
+  const productosFiltrados = todosLosProductos.filter(p => {
+    const matchCat = (categoriaActual === 'Todos' || (p.categoria && p.categoria.toLowerCase() === categoriaActual.toLowerCase()));
+    const matchTipo = (tipoActual === 'Todos' || (p.tipo && p.tipo.toLowerCase() === tipoActual.toLowerCase()));
+    return matchCat && matchTipo;
+  });
+
+  if (productosFiltrados.length === 0) {
+    grid.innerHTML = `<div class="empty-state">No se encontraron piezas en esta selección.</div>`;
+    return;
+  }
+
+  grid.innerHTML = productosFiltrados.map((p) => {
+    const fotos = parsearFotos(p);
+    const primeraFoto = fotos.length > 0 ? optimizarCloudinary(fotos[0], 500) : null;
+    const agotado = String(p.disponible || p.stock || '').toLowerCase().includes('no') || String(p.agotado || '').toLowerCase() === 'si';
+
+    return `
+      <article class="card" onclick="abrirModal(${p._id})">
+        <div class="card-img">
+          ${primeraFoto 
+            ? `<img src="${primeraFoto}" alt="${p.nombre || 'Joya'}" loading="lazy" decoding="async">` 
+            : `<span class="no-foto">Sin foto</span>`}
+          ${agotado ? `<div class="agotado-overlay"><span class="agotado-label">Agotado</span></div>` : ''}
+        </div>
+        <div class="card-body">
+          <span class="card-category">${p.categoria || p.tipo || 'Pieza de autor'}</span>
+          <h3 class="card-name">${p.nombre || 'Pieza sin título'}</h3>
+          ${p.descripcion ? `<p class="card-desc">${p.descripcion}</p>` : ''}
+          <div class="card-footer">
+            <span class="card-price">${formatearPrecio(p.precio)}</span>
+            ${!agotado ? `
+              <a class="wa-btn" href="${linkWA(p.nombre)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                ${waIconSVG} Consultar
+              </a>
+            ` : ''}
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
+// ── MODAL & CARRUSEL ──
+function abrirModal(id) {
+  const p = todosLosProductos.find(item => item._id === id);
+  if (!p) return;
+
+  fotosModal = parsearFotos(p);
+  carruselActual = 0;
+
+  const track = document.getElementById('carousel-track');
+  const dots = document.getElementById('carousel-dots');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+
+  if (fotosModal.length > 0) {
+    track.innerHTML = fotosModal.map(url => `
+      <div class="carousel-slide">
+        <img src="${optimizarCloudinary(url, 900)}" alt="${p.nombre}">
+      </div>
+    `).join('');
+
+    dots.innerHTML = fotosModal.map((_, i) => `
+      <button class="carousel-dot${i === 0 ? ' active' : ''}" onclick="irASlide(${i})"></button>
+    `).join('');
+
+    btnPrev.classList.toggle('hidden', fotosModal.length <= 1);
+    btnNext.classList.toggle('hidden', fotosModal.length <= 1);
+    dots.style.display = fotosModal.length > 1 ? 'flex' : 'none';
+  } else {
+    track.innerHTML = `<div class="carousel-slide" style="display:flex;align-items:center;justify-content:center;color:var(--stone);font-size:0.75rem;">SIN FOTO DISPONIBLE</div>`;
+    dots.innerHTML = '';
+    btnPrev.classList.add('hidden');
+    btnNext.classList.add('hidden');
+  }
+
+  document.getElementById('modal-category').innerText = p.categoria || p.tipo || 'Hecho por Lala';
+  document.getElementById('modal-name').innerText = p.nombre || '';
+  document.getElementById('modal-price').innerText = formatearPrecio(p.precio);
+  document.getElementById('modal-desc').innerText = p.descripcion || 'Pieza artesanal trabajada a mano en Córdoba.';
+
+  const agotado = String(p.disponible || p.stock || '').toLowerCase().includes('no') || String(p.agotado || '').toLowerCase() === 'si';
+  const ctaContainer = document.getElementById('modal-cta');
+  
+  if (agotado) {
+    ctaContainer.innerHTML = `<span class="modal-agotado">Pieza no disponible actualmente</span>`;
+  } else {
+    ctaContainer.innerHTML = `
+      <a class="modal-wa" href="${linkWA(p.nombre)}" target="_blank" rel="noopener">
+        ${waIconSVG} Consultar disponibilidad
+      </a>
+    `;
+  }
+
+  actualizarCarrusel();
+  document.getElementById('modal-backdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarModal(e, forzar = false) {
+  if (forzar || (e && e.target.id === 'modal-backdrop')) {
+    document.getElementById('modal-backdrop').classList.remove('open');
+    if (!document.getElementById('drawer-panel').classList.contains('open')) {
+      document.body.style.overflow = '';
+    }
+  }
+}
+
+function moverCarrusel(dir) {
+  if (fotosModal.length <= 1) return;
+  carruselActual = (carruselActual + dir + fotosModal.length) % fotosModal.length;
+  actualizarCarrusel();
+}
+
+function irASlide(idx) {
+  carruselActual = idx;
+  actualizarCarrusel();
+}
+
+function actualizarCarrusel() {
+  const track = document.getElementById('carousel-track');
+  if (track) track.style.transform = `translateX(-${carruselActual * 100}%)`;
+  document.querySelectorAll('.carousel-dot').forEach((dot, idx) => {
+    dot.classList.toggle('active', idx === carruselActual);
+  });
+}
+
+// ── CARGA ASINCRÓNICA DE GOOGLE SHEETS ──
+async function cargarProductos() {
+  const urlGviz = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+  
+  try {
+    const res = await fetch(urlGviz);
+    const txt = await res.text();
+    
+    const jsonString = txt.substring(txt.indexOf('{'), txt.lastIndexOf('}') + 1);
+    const data = JSON.parse(jsonString);
+
+    const cols = data.table.cols.map(c => (c && c.label ? c.label.toLowerCase().trim() : ''));
+    const rows = data.table.rows;
+
+    todosLosProductos = rows.map((r, i) => {
+      const obj = { _id: i + 1 };
+      r.c.forEach((cell, idx) => {
+        const colName = cols[idx] || `col_${idx}`;
+        obj[colName] = cell ? (cell.v !== null ? cell.v : '') : '';
+      });
+      return obj;
+    }).filter(p => p.nombre && String(p.nombre).trim().length > 0);
+
+    const subtipos = ['Anillos', 'Aros', 'Collares', 'Pulseras', 'Brazaletes'];
+    renderizarSubtipos(subtipos);
+    renderizar();
+
+  } catch (err) {
+    console.warn("Fallo gviz, intentando exportación CSV directa...", err);
+    cargarCSVFallback();
+  }
+}
+
+async function cargarCSVFallback() {
+  const urlCSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
+  try {
+    const res = await fetch(urlCSV);
+    const csv = await res.text();
+    const lineas = csv.split('\n').filter(l => l.trim().length > 0);
+    if (lineas.length < 2) throw new Error("Planilla vacía");
+
+    const headers = lineas[0].split(',').map(h => h.replace(/^"|"$/g, '').toLowerCase().trim());
+    
+    todosLosProductos = lineas.slice(1).map((linea, i) => {
+      const valores = linea.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
+      const obj = { _id: i + 1 };
+      headers.forEach((h, idx) => {
+        const val = valores[idx] ? valores[idx].replace(/^"|"$/g, '').trim() : '';
+        obj[h] = val;
+      });
+      return obj;
+    }).filter(p => p.nombre && p.nombre.trim().length > 0);
+
+    const subtipos = ['Anillos', 'Aros', 'Collares', 'Pulseras', 'Brazaletes'];
+    renderizarSubtipos(subtipos);
+    renderizar();
+  } catch (e) {
+    const grid = document.getElementById('grid');
+    if (grid) {
+      grid.innerHTML = `<div class="empty-state">No se pudo cargar el catálogo. Verificá que la planilla de Google Sheets esté compartida como pública ("Cualquiera con el enlace").</div>`;
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  cargarProductos();
+});
+</script>
+</body>
+</html>
